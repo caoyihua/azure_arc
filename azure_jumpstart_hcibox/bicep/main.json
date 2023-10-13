@@ -77,7 +77,7 @@
     },
     "githubAccount": {
       "type": "string",
-      "defaultValue": "microsoft",
+      "defaultValue": "caoyihua",
       "metadata": {
         "description": "Target GitHub account"
       }
