@@ -2823,7 +2823,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 # Download HCIBox VHDs
 Write-Verbose "Downloading HCIBox VHDs. This will take a while..."
-BITSRequest -Params @{'Uri'='https://hciimagesa.blob.core.windows.net/2310/ServerHCI.vhdx?sv=2021-10-04&st=2023-10-13T09%3A13%3A51Z&se=2023-10-15T09%3A13%3A00Z&sr=b&sp=r&sig=e8L469LidIHBDw6hSsM2HS8c6vNhhAjw1nhu114Kh4s%3D'; 'Filename'="$env:HCIBoxVHDDir\AZSHCI.vhdx" }
+BITSRequest -Params @{'Uri'='https://yihuacaosa.blob.core.windows.net/2310/ServerHCI.vhdx?sv=2021-10-04&st=2023-10-16T06%3A21%3A19Z&se=2023-11-16T06%3A21%3A00Z&sr=b&sp=r&sig=io%2Fx7dV6Yly216ZrSdFcun1w9g6hKejrMt46AtalY8c%3D'; 'Filename'="$env:HCIBoxVHDDir\AZSHCI.vhdx" }
 BITSRequest -Params @{'Uri'='https://aka.ms/AAij9n9'; 'Filename'="$env:HCIBoxVHDDir\GUI.vhdx"}
 BITSRequest -Params @{'Uri'='https://partner-images.canonical.com/hyper-v/desktop/focal/current/ubuntu-focal-hyperv-amd64-ubuntu-desktop-hyperv.vhdx.zip'; 'Filename'="$env:HCIBoxVHDDir\Ubuntu.vhdx.zip"}
 Expand-Archive -Path $env:HCIBoxVHDDir\Ubuntu.vhdx.zip -DestinationPath $env:HCIBoxVHDDir
