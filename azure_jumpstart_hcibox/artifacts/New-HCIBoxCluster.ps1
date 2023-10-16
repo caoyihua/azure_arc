@@ -7,6 +7,8 @@ param(
     [Bool] $Delete = $false
 )
 
+$VerbosePreference = "Continue"
+
 # Set paths
 $Env:HCIBoxDir = "C:\HCIBox"
 $Env:HCIBoxLogsDir = "C:\HCIBox\Logs"
@@ -1303,8 +1305,8 @@ function New-DCVM {
 
             New-ADUser @params
 
-            NEW-ADGroup -name “NCAdmins” -groupscope Global
-            NEW-ADGroup -name “NCClients” -groupscope Global
+            NEW-ADGroup -name "NCAdmins" -groupscope Global
+            NEW-ADGroup -name "NCClients" -groupscope Global
 
             add-ADGroupMember "Domain Admins" "NCAdmin"
             add-ADGroupMember "NCAdmins" "NCAdmin"
@@ -1610,7 +1612,7 @@ function New-RouterVM {
             $NIC = Get-NetAdapterAdvancedProperty -RegistryKeyWord "HyperVNetworkAdapterName" | Where-Object { $_.RegistryValue -eq "Mgmt" }
             Rename-NetAdapter -name $NIC.name -newname "Mgmt" | Out-Null
             New-NetIPAddress -InterfaceAlias "Mgmt" -IPAddress $MGMTIP -PrefixLength $MGMTPFX | Out-Null
-            Set-DnsClientServerAddress -InterfaceAlias “Mgmt” -ServerAddresses $DNS] | Out-Null
+            Set-DnsClientServerAddress -InterfaceAlias "Mgmt" -ServerAddresses $DNS] | Out-Null
             $NIC = Get-NetAdapterAdvancedProperty -RegistryKeyWord "HyperVNetworkAdapterName" | Where-Object { $_.RegistryValue -eq "PROVIDER" }
             Rename-NetAdapter -name $NIC.name -newname "PROVIDER" | Out-Null
             New-NetIPAddress -InterfaceAlias "PROVIDER" -IPAddress $PNVIP -PrefixLength $PNVPFX | Out-Null
@@ -2723,8 +2725,15 @@ function New-SDNS2DCluster {
             Write-Verbose "Setting Virtual Environment Optimizations"
 
             $VerbosePreference = "SilentlyContinue"
-            Get-storagesubsystem clus* | set-storagehealthsetting -name “System.Storage.PhysicalDisk.AutoReplace.Enabled” -value “False”
-            Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Parameters -Name HwTimeout -Value 0x00007530
+            Get-storagesubsystem clus* | set-storagehealthsetting -name "System.Storage.PhysicalDisk.AutoReplace.Enabled" -value "False"
+
+            if (Test-Path -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Parameters) {
+                Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Parameters -Name HwTimeout -Value 0x00007530
+            }
+            else {
+                New-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport -Name Parameters
+                New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Parameters -Name HwTimeout -Value 0x00007530
+            }
             $VerbosePreference = "Continue"
 
             # Rename Storage Network Adapters

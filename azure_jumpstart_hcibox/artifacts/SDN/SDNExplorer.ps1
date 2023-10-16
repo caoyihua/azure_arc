@@ -10,33 +10,33 @@ param(
     $IsModule = $false
 )
 
-function GenerateMainForm { 
+function GenerateMainForm {
 
 param(
         [Parameter(mandatory=$true)]
         [object[]] $DataArr
     )
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
-    $ExplorerForm.Text = “SDN Explorer NC:$NCIP” 
-    $ExplorerForm.Name = “SDN Explorer NC:$NCIP” 
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    #———————————————-
+    #region Generated Form Code
+    $ExplorerForm.Text = "SDN Explorer NC:$NCIP"
+    $ExplorerForm.Name = "SDN Explorer NC:$NCIP"
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
     # panel to have scroll bar
     $panel = New-Object System.Windows.Forms.Panel
@@ -45,38 +45,38 @@ param(
     $panel.Location = New-Object System.Drawing.Point (5,5)
 
 
-    $System_Drawing_Point = New-Object System.Drawing.Point 
-    $System_Drawing_Point.X = 80 
-    $System_Drawing_Point.Y = 20 
+    $System_Drawing_Point = New-Object System.Drawing.Point
+    $System_Drawing_Point.X = 80
+    $System_Drawing_Point.Y = 20
     for ($it = 0; $it -lt $DataArr.Count ;$it++)
     {
-        $button = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 240 
-        $System_Drawing_SizeButton.Height = 23 
-        $button.TabIndex = 0 
-        $button.Name = “UnlockAccountButton” 
-        $button.Size = $System_Drawing_SizeButton 
+        $button = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 240
+        $System_Drawing_SizeButton.Height = 23
+        $button.TabIndex = 0
+        $button.Name = "UnlockAccountButton"
+        $button.Size = $System_Drawing_SizeButton
         $button.UseVisualStyleBackColor = $True
         $button.Text = $DataArr[$it].Name
-        $button.Location = $System_Drawing_Point 
-        $button.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $button.Location = $System_Drawing_Point
+        $button.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock = $DataArr[$it].Value[0]
         $button.add_Click($scriptBlock)
         $panel.Controls.Add($button)
 
 
-        $putButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 60 
-        $System_Drawing_SizeButton.Height = 23 
-        $putButton.TabIndex = 0 
-        $putButton.Name = "Put” 
-        $putButton.Size = $System_Drawing_SizeButton 
+        $putButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 60
+        $System_Drawing_SizeButton.Height = 23
+        $putButton.TabIndex = 0
+        $putButton.Name = "Put"
+        $putButton.Size = $System_Drawing_SizeButton
         $putButton.UseVisualStyleBackColor = $True
         $putButton.Text = "Put"
-        $putButton.Location = New-Object System.Drawing.Size(340,$System_Drawing_Point.Y)  
-        $putButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $putButton.Location = New-Object System.Drawing.Size(340,$System_Drawing_Point.Y)
+        $putButton.DataBindings.DefaultDataSourceUpdateMode = 0
         if($DataArr[$it].Value.Count -gt 1)
         {
             $scriptBlock = $DataArr[$it].Value[1]
@@ -89,17 +89,17 @@ param(
         $panel.Controls.Add($putButton)
 
 
-        $DeleteButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 60 
-        $System_Drawing_SizeButton.Height = 23 
-        $DeleteButton.TabIndex = 0 
-        $DeleteButton.Name = "Delete” 
-        $DeleteButton.Size = $System_Drawing_SizeButton 
+        $DeleteButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 60
+        $System_Drawing_SizeButton.Height = 23
+        $DeleteButton.TabIndex = 0
+        $DeleteButton.Name = "Delete"
+        $DeleteButton.Size = $System_Drawing_SizeButton
         $DeleteButton.UseVisualStyleBackColor = $True
         $DeleteButton.Text = "Delete"
-        $DeleteButton.Location = New-Object System.Drawing.Size(420,$System_Drawing_Point.Y)  
-        $DeleteButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $DeleteButton.Location = New-Object System.Drawing.Size(420,$System_Drawing_Point.Y)
+        $DeleteButton.DataBindings.DefaultDataSourceUpdateMode = 0
         if($DataArr[$it].Value.Count -gt 2)
         {
             $scriptBlock = $DataArr[$it].Value[2]
@@ -125,7 +125,7 @@ param(
         $yPoint = $System_Drawing_Point.Y + 50
     }
 
-    $System_Drawing_Size = New-Object System.Drawing.Size 
+    $System_Drawing_Size = New-Object System.Drawing.Size
     $System_Drawing_Size.Width = 560
     $System_Drawing_Size.Height = $yPoint
     $ExplorerForm.ClientSize = $System_Drawing_Size
@@ -138,16 +138,16 @@ param(
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
-    #Show the Form 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
 }
 
-function GenerateArrayForm { 
+function GenerateArrayForm {
 
 param(
         [Parameter(mandatory=$true)]
@@ -162,8 +162,8 @@ param(
         [Parameter(mandatory=$false)]
         [object]
         $NCCredential=  [System.Management.Automation.PSCredential]::Empty,
-		
-		[Parameter(mandatory=$true)]        
+
+		[Parameter(mandatory=$true)]
 		[bool]
 		$EnableMultiWindow=$true
     )
@@ -178,9 +178,9 @@ param(
     {
         $progress = [powershell]::create()
 
-        $progressScript = {	
+        $progressScript = {
             param(
-            [string] $HandlerFunc,            
+            [string] $HandlerFunc,
             [string] $RemoveFunc,
             [string] $NCIP,
             [object] $NCCredential=  [System.Management.Automation.PSCredential]::Empty,
@@ -190,14 +190,14 @@ param(
             )
 
             try{
-                
+
                 Set-Location $CurWorDir
                 Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
-                GenerateArrayFormHelper -HandlerFunc $HandlerFunc -RemoveFunc $RemoveFunc -NCIP $NCIP -NCCredential $NCCredential -EnableMultiWindow $EnableMultiWindow -NCVMCredential $NCVMCredential                                                 
+                GenerateArrayFormHelper -HandlerFunc $HandlerFunc -RemoveFunc $RemoveFunc -NCIP $NCIP -NCCredential $NCCredential -EnableMultiWindow $EnableMultiWindow -NCVMCredential $NCVMCredential
             }
             catch
             {
-                 [System.Windows.Forms.MessageBox]::Show($_) 
+                 [System.Windows.Forms.MessageBox]::Show($_)
             }
 	    }
 
@@ -209,19 +209,19 @@ param(
         $parameters.EnableMultiWindow = $EnableMultiWindow
         $parameters.CurWorDir = $pwd
         $parameters.NCVMCredential = $script:ncVMCredentials
-        
-        $progress.AddScript($progressScript)	
-        $progress.AddParameters($parameters)      
-        $progress.BeginInvoke()                      		                                               
-	    
-    }       
+
+        $progress.AddScript($progressScript)
+        $progress.AddParameters($parameters)
+        $progress.BeginInvoke()
+
+    }
     else{
         GenerateArrayFormHelper -HandlerFunc $HandlerFunc -RemoveFunc $RemoveFunc -NCIP $NCIP -NCCredential $NCCredential -EnableMultiWindow $EnableMultiWindow -NCVMCredential $script:ncVMCredentials
     }
 
 }
 
-function GenerateArrayFormHelper { 
+function GenerateArrayFormHelper {
 
 param(
         [Parameter(mandatory=$true)]
@@ -236,8 +236,8 @@ param(
         [Parameter(mandatory=$false)]
         [object]
         $NCCredential=  [System.Management.Automation.PSCredential]::Empty,
-		
-		[Parameter(mandatory=$true)]        
+
+		[Parameter(mandatory=$true)]
 		[bool]
 		$EnableMultiWindow=$true,
 
@@ -248,26 +248,26 @@ param(
 
     . .\NetworkControllerRESTWrappers.ps1 -ComputerName $NCIP -Username $null -Password $null -Credential $Script:NCCredential
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
-    $ExplorerForm.Text = “$HandlerFunc NC:$NCIP” 
-    $ExplorerForm.Name = “$HandlerFunc NC:$NCIP” 
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    #———————————————-
+    #region Generated Form Code
+    $ExplorerForm.Text = "$HandlerFunc NC:$NCIP"
+    $ExplorerForm.Name = "$HandlerFunc NC:$NCIP"
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
     # panel to have scroll bar
     $panel = New-Object System.Windows.Forms.Panel
@@ -290,23 +290,23 @@ param(
         }
     }
 
-    $System_Drawing_Point = New-Object System.Drawing.Point 
+    $System_Drawing_Point = New-Object System.Drawing.Point
     $System_Drawing_Point.X = 80
     $System_Drawing_Point.Y = 20
 
     if ($HandlerFunc -eq "Get-NCConnectivityCheckResult")
     {
-        $diagButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 240 
-        $System_Drawing_SizeButton.Height = 23 
-        $diagButton.TabIndex = 0 
+        $diagButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 240
+        $System_Drawing_SizeButton.Height = 23
+        $diagButton.TabIndex = 0
         $diagButton.Name = $data.resourceRef
-        $diagButton.Size = $System_Drawing_SizeButton 
+        $diagButton.Size = $System_Drawing_SizeButton
         $diagButton.UseVisualStyleBackColor = $True
         $diagButton.Text = "PUT=>/diagnostics/networkcontrollerstate"
-        $diagButton.Location = $System_Drawing_Point 
-        $diagButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $diagButton.Location = $System_Drawing_Point
+        $diagButton.DataBindings.DefaultDataSourceUpdateMode = 0
         $diagButton_add = $diagButton.add_Click
         $diagButton_add.Invoke({
 
@@ -315,34 +315,34 @@ param(
                 $verify = VerifyUserAction -String "Do you want to Put networkcontrollerstate?"
 
                 if ($verify -eq $true)
-                {                
+                {
                     $object = @{}
                     $object.properties = @{}
                     JSONPost -path "/diagnostics/networkcontrollerstate" -bodyObject $object
-                    [System.Windows.Forms.MessageBox]::Show("Posted!!!") 
+                    [System.Windows.Forms.MessageBox]::Show("Posted!!!")
                 }
             }
             catch
             {
-                [System.Windows.Forms.MessageBox]::Show($_) 
+                [System.Windows.Forms.MessageBox]::Show($_)
             }
             })
         $panel.Controls.Add($diagButton)
         $System_Drawing_Point.Y += 33
 
-        
+
         # Adding network controller statistics button
-        $ncStatsButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 240 
-        $System_Drawing_SizeButton.Height = 23 
-        $ncStatsButton.TabIndex = 1 
+        $ncStatsButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 240
+        $System_Drawing_SizeButton.Height = 23
+        $ncStatsButton.TabIndex = 1
         $ncStatsButton.Name = $data.resourceRef
-        $ncStatsButton.Size = $System_Drawing_SizeButton 
+        $ncStatsButton.Size = $System_Drawing_SizeButton
         $ncStatsButton.UseVisualStyleBackColor = $True
         $ncStatsButton.Text = "GET=>/monitoring/networkcontrollerstatistics"
-        $ncStatsButton.Location = $System_Drawing_Point 
-        $ncStatsButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $ncStatsButton.Location = $System_Drawing_Point
+        $ncStatsButton.DataBindings.DefaultDataSourceUpdateMode = 0
         $ncStatsButton_add = $ncStatsButton.add_Click
         $ncStatsButton_add.Invoke({
                 param([object]$sender)
@@ -351,7 +351,7 @@ param(
                 {
                 	$ps = [powershell]::create()
 
-                    $script = {	
+                    $script = {
                         param(
                         [string] $ResourceRef,
 
@@ -363,15 +363,15 @@ param(
 
                         [bool]$EnableMultiWindow
 
-                        )	
+                        )
                             try{
-                            
+
                                 Set-Location $CurWorDir
                                 Import-Module -Force -Name .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
                                 JsonForm -ResourceRef $ResourceRef -NCIP $NCIP -NCCredential $NCCredential -EnableMultiWindow $true
                             }
                             catch{
-                                [System.Windows.Forms.MessageBox]::Show($_)                             
+                                [System.Windows.Forms.MessageBox]::Show($_)
                             }
 			            }
                         $parameters = @{}
@@ -383,7 +383,7 @@ param(
 
 	    	            $ps.AddScript(
 			                $script
-		                )		
+		                )
                     $ps.AddParameters($parameters)
 		            $ps.BeginInvoke()
                 }
@@ -391,22 +391,22 @@ param(
                 {
                     JsonForm -ResourceRef $sender.Text -NCIP $NCIP -NCCredential $NCCredential
                 }
-                
+
               })
         $panel.Controls.Add($ncStatsButton)
         $System_Drawing_Point.Y += 33
 
-        $debugSFNSButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 240 
-        $System_Drawing_SizeButton.Height = 23 
-        $debugSFNSButton.TabIndex = 0 
+        $debugSFNSButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 240
+        $System_Drawing_SizeButton.Height = 23
+        $debugSFNSButton.TabIndex = 0
         $debugSFNSButton.Name = "Debug-ServiceFabricNodeStatus"
-        $debugSFNSButton.Size = $System_Drawing_SizeButton 
+        $debugSFNSButton.Size = $System_Drawing_SizeButton
         $debugSFNSButton.UseVisualStyleBackColor = $True
         $debugSFNSButton.Text = "Debug-ServiceFabricNodeStatus"
-        $debugSFNSButton.Location = $System_Drawing_Point 
-        $debugSFNSButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $debugSFNSButton.Location = $System_Drawing_Point
+        $debugSFNSButton.DataBindings.DefaultDataSourceUpdateMode = 0
         $debugSFNSButton_add = $debugSFNSButton.add_Click
         $debugSFNSButton.Enabled = $false
         $debugSFNSButton_add.Invoke({
@@ -415,8 +415,8 @@ param(
             {
                 $ps = [powershell]::create()
 
-                $script = {	
-                    param(                   
+                $script = {
+                    param(
 
                     [string]$Cmdlet,
 
@@ -429,15 +429,15 @@ param(
                     [string]$CurWorDir,
 
                     [bool]$EnableMultiWindow
-                    )	
+                    )
 
                     try{
                             Set-Location $CurWorDir
-                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true                            
-                            RunNCCMDLet -CmdLet $Cmdlet -NCVMCred $NCVMCredential -NCIP $NCIP                                                                      
+                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
+                            RunNCCMDLet -CmdLet $Cmdlet -NCVMCred $NCVMCredential -NCIP $NCIP
                     }
                         catch{
-                            [System.Windows.Forms.MessageBox]::Show($_) 
+                            [System.Windows.Forms.MessageBox]::Show($_)
                         }
 			        }
                     $parameters = @{}
@@ -449,29 +449,29 @@ param(
                     $parameters.EnableMultiWindow = $EnableMultiWindow
 	    	        $ps.AddScript(
 			            $script
-		            )		
+		            )
                 $ps.AddParameters($parameters)
-		        $ps.BeginInvoke()                
+		        $ps.BeginInvoke()
             }
             else
             {
-                RunNCCMDLet -CmdLet "Debug-ServiceFabricNodeStatus" -NCVMCred $NCVMCredential -NCIP $NCIP   
+                RunNCCMDLet -CmdLet "Debug-ServiceFabricNodeStatus" -NCVMCred $NCVMCredential -NCIP $NCIP
             }
         })
         $panel.Controls.Add($debugSFNSButton)
         $System_Drawing_Point.Y += 33
 
-        $debugNCCSButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 240 
-        $System_Drawing_SizeButton.Height = 23 
-        $debugNCCSButton.TabIndex = 0 
+        $debugNCCSButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 240
+        $System_Drawing_SizeButton.Height = 23
+        $debugNCCSButton.TabIndex = 0
         $debugNCCSButton.Name = "Debug-NetworkControllerConfigurationState"
-        $debugNCCSButton.Size = $System_Drawing_SizeButton 
+        $debugNCCSButton.Size = $System_Drawing_SizeButton
         $debugNCCSButton.UseVisualStyleBackColor = $True
         $debugNCCSButton.Text = "Debug-NetworkControllerConfigurationState"
-        $debugNCCSButton.Location = $System_Drawing_Point 
-        $debugNCCSButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $debugNCCSButton.Location = $System_Drawing_Point
+        $debugNCCSButton.DataBindings.DefaultDataSourceUpdateMode = 0
         $debugNCCSButton_add = $debugNCCSButton.add_Click
         $debugNCCSButton_add.Invoke({
 
@@ -479,8 +479,8 @@ param(
             {
                 $ps = [powershell]::create()
 
-                $script = {	
-                    param(                   
+                $script = {
+                    param(
 
                     [string]$Cmdlet,
 
@@ -493,15 +493,15 @@ param(
                     [string]$CurWorDir,
 
                     [bool]$EnableMultiWindow
-                    )	
+                    )
 
                     try{
                             Set-Location $CurWorDir
-                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true                            
-                            RunNCCMDLet -CmdLet $Cmdlet -NCVMCred $NCVMCredential -NCIP $NCIP                                                                    
+                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
+                            RunNCCMDLet -CmdLet $Cmdlet -NCVMCred $NCVMCredential -NCIP $NCIP
                     }
                         catch{
-                            [System.Windows.Forms.MessageBox]::Show($_) 
+                            [System.Windows.Forms.MessageBox]::Show($_)
                         }
 			        }
                     $parameters = @{}
@@ -513,29 +513,29 @@ param(
                     $parameters.EnableMultiWindow = $EnableMultiWindow
 	    	        $ps.AddScript(
 			            $script
-		            )		
+		            )
                 $ps.AddParameters($parameters)
-		        $ps.BeginInvoke()                
+		        $ps.BeginInvoke()
             }
             else
             {
-                RunNCCMDLet -CmdLet "Debug-NetworkControllerConfigurationState" -NCVMCred $NCVMCredential -NCIP $NCIP   
+                RunNCCMDLet -CmdLet "Debug-NetworkControllerConfigurationState" -NCVMCred $NCVMCredential -NCIP $NCIP
             }
         })
         $panel.Controls.Add($debugNCCSButton)
         $System_Drawing_Point.Y += 33
 
-        $debugNCButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 240 
-        $System_Drawing_SizeButton.Height = 23 
-        $debugNCButton.TabIndex = 0 
+        $debugNCButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 240
+        $System_Drawing_SizeButton.Height = 23
+        $debugNCButton.TabIndex = 0
         $debugNCButton.Name = "Debug-NetworkController"
-        $debugNCButton.Size = $System_Drawing_SizeButton 
+        $debugNCButton.Size = $System_Drawing_SizeButton
         $debugNCButton.UseVisualStyleBackColor = $True
         $debugNCButton.Text = "Debug-NetworkController"
-        $debugNCButton.Location = $System_Drawing_Point 
-        $debugNCButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $debugNCButton.Location = $System_Drawing_Point
+        $debugNCButton.DataBindings.DefaultDataSourceUpdateMode = 0
         $debugNCButton_add = $debugNCButton.add_Click
         $debugNCButton_add.Invoke({
 
@@ -543,8 +543,8 @@ param(
             {
                 $ps = [powershell]::create()
 
-                $script = {	
-                    param(                   
+                $script = {
+                    param(
 
                     [string]$Cmdlet,
 
@@ -557,15 +557,15 @@ param(
                     [string]$CurWorDir,
 
                     [bool]$EnableMultiWindow
-                    )	
+                    )
 
                     try{
                             Set-Location $CurWorDir
-                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true                            
-                            RunNCCMDLet -CmdLet $Cmdlet -NCVMCred $NCVMCredential -NCIP $NCIP                                                                         
+                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
+                            RunNCCMDLet -CmdLet $Cmdlet -NCVMCred $NCVMCredential -NCIP $NCIP
                     }
                         catch{
-                            [System.Windows.Forms.MessageBox]::Show($_) 
+                            [System.Windows.Forms.MessageBox]::Show($_)
                         }
 			        }
                     $parameters = @{}
@@ -577,58 +577,58 @@ param(
                     $parameters.EnableMultiWindow = $EnableMultiWindow
 	    	        $ps.AddScript(
 			            $script
-		            )		
+		            )
                 $ps.AddParameters($parameters)
-		        $ps.BeginInvoke()                
+		        $ps.BeginInvoke()
             }
             else
             {
-                RunNCCMDLet -CmdLet "Debug-NetworkController" -NCVMCred $NCVMCredential -NCIP $NCIP   
+                RunNCCMDLet -CmdLet "Debug-NetworkController" -NCVMCred $NCVMCredential -NCIP $NCIP
             }
 
-            [System.Windows.Forms.MessageBox]::Show("Started your request in background!!") 
+            [System.Windows.Forms.MessageBox]::Show("Started your request in background!!")
         })
         $panel.Controls.Add($debugNCButton)
         $System_Drawing_Point.Y += 33
-        
+
     }
     elseif ($HandlerFunc -eq "Get-NCServer")
     {
-        $runButton = New-Object System.Windows.Forms.Button 
-        $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-        $System_Drawing_SizeButton.Width = 280 
-        $System_Drawing_SizeButton.Height = 23 
-        $runButton.TabIndex = 0 
+        $runButton = New-Object System.Windows.Forms.Button
+        $System_Drawing_SizeButton = New-Object System.Drawing.Size
+        $System_Drawing_SizeButton.Width = 280
+        $System_Drawing_SizeButton.Height = 23
+        $runButton.TabIndex = 0
         $runButton.Name = $data.resourceRef
-        $runButton.Size = $System_Drawing_SizeButton 
+        $runButton.Size = $System_Drawing_SizeButton
         $runButton.UseVisualStyleBackColor = $True
         $runButton.Text = "--Run Script Block--"
         $locationY = $System_Drawing_Point.Y + 1
-        $runButton.Location = New-Object System.Drawing.Size(10,$locationY)  
-        $runButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $runButton.Location = New-Object System.Drawing.Size(10,$locationY)
+        $runButton.DataBindings.DefaultDataSourceUpdateMode = 0
         $runButton_add = $runButton.add_Click
         $runButton_add.Invoke({
             if ($EnableMultiWindow)
             {
                 $ps = [powershell]::create()
 
-                $script = {	
-                    param(                   
+                $script = {
+                    param(
 
                     [object[]]$jsonObject,
 
                     [string]$CurWorDir,
 
                     [bool]$EnableMultiWindow
-                    )	
+                    )
 
                     try{
                             Set-Location $CurWorDir
-                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true                            
-                            RunScriptForm -Servers $jsonObject                                                                         
+                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
+                            RunScriptForm -Servers $jsonObject
                     }
                         catch{
-                            [System.Windows.Forms.MessageBox]::Show($_) 
+                            [System.Windows.Forms.MessageBox]::Show($_)
                         }
 			        }
                     $parameters = @{}
@@ -637,9 +637,9 @@ param(
                     $parameters.EnableMultiWindow = $EnableMultiWindow
 	    	        $ps.AddScript(
 			            $script
-		            )		
+		            )
                 $ps.AddParameters($parameters)
-		        $ps.BeginInvoke()                
+		        $ps.BeginInvoke()
             }
             else
             {
@@ -654,7 +654,7 @@ param(
     if ($dataArr.Count -gt 0 -and $failed -eq $false)
     {
         if ($dataArr.Count -ge 1)
-        { 
+        {
             if ($DataArr[0].resourceRef.Contains("networkInterfaces") -or $DataArr[0].resourceRef.Contains("loadBalancers"))
             {
                 $extraSpace = 40
@@ -664,15 +664,15 @@ param(
         foreach ($data in $dataArr)
         {
             $System_Drawing_Point.X = 10
-            $button = New-Object System.Windows.Forms.Button 
-            $button.TabIndex = 0 
+            $button = New-Object System.Windows.Forms.Button
+            $button.TabIndex = 0
             $button.Name = $data.resourceRef
             $button.Size = New-Object System.Drawing.Size(280,23)
             $button.UseVisualStyleBackColor = $True
             $button.Text = $data.resourceRef
             $locationY = $System_Drawing_Point.Y + 1
-            $button.Location = New-Object System.Drawing.Size(10,$locationY)  
-            $button.DataBindings.DefaultDataSourceUpdateMode = 0 
+            $button.Location = New-Object System.Drawing.Size(10,$locationY)
+            $button.DataBindings.DefaultDataSourceUpdateMode = 0
             $button_add = $button.add_Click
             $button_add.Invoke({
 
@@ -682,7 +682,7 @@ param(
                 {
                 	$ps = [powershell]::create()
 
-                    $script = {	
+                    $script = {
                         param(
                         [string] $ResourceRef,
 
@@ -694,15 +694,15 @@ param(
 
                         [bool]$EnableMultiWindow
 
-                        )	
+                        )
                             try{
-                            
+
                                 Set-Location $CurWorDir
                                 Import-Module -Force -Name .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
                                 JsonForm -ResourceRef $ResourceRef -NCIP $NCIP -NCCredential $NCCredential -EnableMultiWindow $true
                             }
                             catch{
-                                [System.Windows.Forms.MessageBox]::Show($_)                             
+                                [System.Windows.Forms.MessageBox]::Show($_)
                             }
 			            }
                         $parameters = @{}
@@ -714,7 +714,7 @@ param(
 
 	    	            $ps.AddScript(
 			                $script
-		                )		
+		                )
                     $ps.AddParameters($parameters)
 		            $ps.BeginInvoke()
                 }
@@ -722,20 +722,20 @@ param(
                 {
                     JsonForm -ResourceRef $sender.Text -NCIP $NCIP -NCCredential $NCCredential
                 }
-                
+
               })
             $panel.Controls.Add($button)
             $System_Drawing_Point.X += 285
 
             if ($data.resourceRef.Contains("networkInterfaces"))
             {
-                $ipBox = New-Object System.Windows.Forms.TextBox 
+                $ipBox = New-Object System.Windows.Forms.TextBox
                 $locationY = $System_Drawing_Point.Y + 1
                 $locationX = $System_Drawing_Point.X + 1
-                $ipBox.Location = New-Object System.Drawing.Size($locationX,$locationY)  
-                $ipBox.Multiline = $false 
+                $ipBox.Location = New-Object System.Drawing.Size($locationX,$locationY)
+                $ipBox.Multiline = $false
                 $ipBox.WordWrap = $false
-                $ipBox.Size = New-Object System.Drawing.Size(80,23) 
+                $ipBox.Size = New-Object System.Drawing.Size(80,23)
 
                 try
                 {
@@ -746,18 +746,18 @@ param(
                     $ipBox.Text = "NULL"
                 }
                 $ipBox.Enabled = $false
-                $panel.Controls.Add($ipBox) 
+                $panel.Controls.Add($ipBox)
                 $System_Drawing_Point.X += 85
             }
             elseif ($data.resourceRef.Contains("loadBalancers"))
             {
-                $ipBox = New-Object System.Windows.Forms.TextBox 
+                $ipBox = New-Object System.Windows.Forms.TextBox
                 $locationY = $System_Drawing_Point.Y + 1
                 $locationX = $System_Drawing_Point.X + 1
-                $ipBox.Location = New-Object System.Drawing.Size($locationX,$locationY)  
-                $ipBox.Multiline = $false 
+                $ipBox.Location = New-Object System.Drawing.Size($locationX,$locationY)
+                $ipBox.Multiline = $false
                 $ipBox.WordWrap = $false
-                $ipBox.Size = New-Object System.Drawing.Size(80,23) 
+                $ipBox.Size = New-Object System.Drawing.Size(80,23)
 
                 try
                 {
@@ -768,25 +768,25 @@ param(
                     $ipBox.Text = "NULL"
                 }
                 $ipBox.Enabled = $false
-                $panel.Controls.Add($ipBox) 
+                $panel.Controls.Add($ipBox)
                 $System_Drawing_Point.X += 85
             }
 
-            $instanceidbox = New-Object System.Windows.Forms.TextBox 
+            $instanceidbox = New-Object System.Windows.Forms.TextBox
             $locationY = $System_Drawing_Point.Y + 1
             $locationX = $System_Drawing_Point.X + 1
-            $instanceidbox.Location = New-Object System.Drawing.Size($locationX,$locationY)  
-            $instanceidbox.Multiline = $false 
+            $instanceidbox.Location = New-Object System.Drawing.Size($locationX,$locationY)
+            $instanceidbox.Multiline = $false
             $instanceidbox.WordWrap = $false
-            $instanceidbox.Size = New-Object System.Drawing.Size(210,23) 
+            $instanceidbox.Size = New-Object System.Drawing.Size(210,23)
             $instanceidbox.Text = $data.instanceid
             $instanceidbox.Enabled = $false
-            $panel.Controls.Add($instanceidbox) 
+            $panel.Controls.Add($instanceidbox)
             $System_Drawing_Point.X += 215
             $extraSpace = 100
 
             $ProvisioningStateLabel = New-Object System.Windows.Forms.Label
-            $System_Drawing_SizeButton = New-Object System.Drawing.Size 
+            $System_Drawing_SizeButton = New-Object System.Drawing.Size
             $System_Drawing_SizeButton.Width = 80
             $System_Drawing_SizeButton.Height = 21
             $ProvisioningStateLabel.TabIndex = 0
@@ -819,33 +819,33 @@ param(
             $ProvisioningStateLabel.Text = $provisioningState
             $ProvisioningStateLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
             $locationX = $System_Drawing_Point.X + 5
-            $ProvisioningStateLabel.Location = New-Object System.Drawing.Size($locationX,($System_Drawing_Point.Y + 1))  
-            $ProvisioningStateLabel.DataBindings.DefaultDataSourceUpdateMode = 0 
+            $ProvisioningStateLabel.Location = New-Object System.Drawing.Size($locationX,($System_Drawing_Point.Y + 1))
+            $ProvisioningStateLabel.DataBindings.DefaultDataSourceUpdateMode = 0
             $panel.Controls.Add($ProvisioningStateLabel)
             $System_Drawing_Point.X += 85
 
-            $DeleteButton = New-Object System.Windows.Forms.Button 
-            $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-            $System_Drawing_SizeButton.Width = 60 
-            $System_Drawing_SizeButton.Height = 23 
-            $DeleteButton.TabIndex = 0 
+            $DeleteButton = New-Object System.Windows.Forms.Button
+            $System_Drawing_SizeButton = New-Object System.Drawing.Size
+            $System_Drawing_SizeButton.Width = 60
+            $System_Drawing_SizeButton.Height = 23
+            $DeleteButton.TabIndex = 0
             $DeleteButton.Name = $data.resourceId
-            $DeleteButton.Size = $System_Drawing_SizeButton 
+            $DeleteButton.Size = $System_Drawing_SizeButton
             $DeleteButton.UseVisualStyleBackColor = $True
             $DeleteButton.Text = "Delete"
             $locationX = $System_Drawing_Point.X + 5
-            $DeleteButton.Location = New-Object System.Drawing.Size($locationX,$System_Drawing_Point.Y)  
-            $DeleteButton.DataBindings.DefaultDataSourceUpdateMode = 0 
-            
+            $DeleteButton.Location = New-Object System.Drawing.Size($locationX,$System_Drawing_Point.Y)
+            $DeleteButton.DataBindings.DefaultDataSourceUpdateMode = 0
+
             $DeleteButton_add = $DeleteButton.add_Click
             $DeleteButton_add.Invoke({
                 param([object]$sender,[string]$message)
 
-                $verify = VerifyUserAction 
+                $verify = VerifyUserAction
 
                 if ($verify -eq $true)
-                {                
-                    &$RemoveFunc -ResourceIDs $sender.Name 
+                {
+                    &$RemoveFunc -ResourceIDs $sender.Name
                     $ExplorerForm.Close()
                 }
               })
@@ -855,7 +855,7 @@ param(
     }
     elseif ($HandlerFunc -ne "Get-NCConnectivityCheckResult")
     {
-        [System.Windows.Forms.MessageBox]::Show("Not Configured!!!!") 
+        [System.Windows.Forms.MessageBox]::Show("Not Configured!!!!")
         return;
     }
 
@@ -868,7 +868,7 @@ param(
         $yPoint = $System_Drawing_Point.Y + 50
     }
 
-    $System_Drawing_Size = New-Object System.Drawing.Size 
+    $System_Drawing_Size = New-Object System.Drawing.Size
     $System_Drawing_Size.Width = 600 + ( 2 * $extraSpace)
     $System_Drawing_Size.Height = $yPoint
     $ExplorerForm.ClientSize = $System_Drawing_Size
@@ -881,16 +881,16 @@ param(
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
-    #Show the Form 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
 }
 
-function RemoveObjForm { 
+function RemoveObjForm {
 
 param(
         [Parameter(mandatory=$true)]
@@ -929,12 +929,12 @@ param(
     }
     catch
     {
-        [System.Windows.Forms.MessageBox]::Show($_) 
+        [System.Windows.Forms.MessageBox]::Show($_)
     }
 
-} 
+}
 
-function PutNetworkInterface { 
+function PutNetworkInterface {
 
 param(
         [Parameter(mandatory=$true)]
@@ -1007,7 +1007,7 @@ param(
         {
             throw "Missing Mac!!!!"
         }
-    
+
         $DNSServer = GetValueForm -Name "DNS Server"
 
         $acls = Get-NCAccessControlList
@@ -1039,19 +1039,19 @@ param(
             $networkInterface = New-NCNetworkInterface -VirtualSubnet $subnet -IPAddress $ip -MACAddress $mac -DNSServers $DNSServer -acl $acl -resourceID $resId
         }
 
-        [System.Windows.Forms.MessageBox]::Show("Done!!!") 
-    
+        [System.Windows.Forms.MessageBox]::Show("Done!!!")
+
         JsonForm -ResourceRef $networkInterface.resourceRef  -NCIP $NCIP -NCCredential $NCCredential
 
     }
     catch
     {
-        [System.Windows.Forms.MessageBox]::Show($_) 
+        [System.Windows.Forms.MessageBox]::Show($_)
     }
 
-} 
+}
 
-function PutLoadBalancer { 
+function PutLoadBalancer {
 
 param(
         [Parameter(mandatory=$true)]
@@ -1081,7 +1081,7 @@ param(
         $frontendPort = [int](GetValueForm -Name "Front End Port")
 
         $backendPort = [int](GetValueForm -Name "Front End Port")
-        
+
         $enableOutboundNatstr = RadioForm -Name "Enable Outbound Nat" -Values "true","false"
 
         $enableOutboundNat = $false
@@ -1091,20 +1091,20 @@ param(
         }
 
         #just to load all dependencies
-        $slbm = get-ncloadbalancermanager 
+        $slbm = get-ncloadbalancermanager
 
         if ($slbm.properties.vipippools.count -lt 1) {
             throw "New-LoadBalancerVIP requires at least one VIP pool in the NC Load balancer manager."
         }
 
         $vipPools = $slbm.properties.vipippools
-    
+
         # check if the input VIP is within range of one of the VIP pools
         foreach ($vippool in $vipPools) {
-            # IP pool's resourceRef is in this format: 
+            # IP pool's resourceRef is in this format:
             # /logicalnetworks/f8f67956-3906-4303-94c5-09cf91e7e311/subnets/aaf28340-30fe-4f27-8be4-40eca97b052d/ipPools/ed48962b-2789-41bf-aa7b-3e6d5b247384
             $sp = $vippool.resourceRef.split("/")
-        
+
             $ln = Get-NCLogicalNetwork -resourceId $sp[2] #LN resourceid is always the first ID (after /logicalnetwork/)
             if (-not $ln) {
                 throw "Can't find logical network with resourceId $($sp[2]) from NC."
@@ -1114,12 +1114,12 @@ param(
             if (-not $subnet) {
                 throw "can't find subnet with resourceId $($sp[4]) from NC."
             }
-        
+
             $pool = $subnet.properties.ipPools | ? {$_.resourceId -eq $sp[6]}
             if (-not $pool) {
                 throw "can't find IP pool with resourceId $($sp[6]) from NC."
             }
-        
+
             $startIp = $pool.properties.startIpAddress
             $endIp = $pool.properties.endIpAddress
             if (IsIpWithinPoolRange -targetIp $vip -startIp $startIp -endIp $endIp) {
@@ -1128,13 +1128,13 @@ param(
                 break;
             }
         }
-    
+
         if (-not $vipLn) {
             throw "$vip is not within range of any of the VIP pools managed by SLB manager."
         }
-         
+
         $lbfe = @(New-NCLoadBalancerFrontEndIPConfiguration -PrivateIPAddress $vip -Subnet ($vipLn.properties.Subnets[0]))
-    
+
         $ips = @()
 
         $lbbe = @(New-NCLoadBalancerBackendAddressPool -IPConfigurations $ips)
@@ -1149,19 +1149,19 @@ param(
             $lb = New-NCLoadBalancer -ResourceID $LoadBalancerResourceID -frontendipconfigurations $lbfe -backendaddresspools $lbbe -loadbalancingrules $rules
         }
 
-        [System.Windows.Forms.MessageBox]::Show("Done!!!") 
-    
+        [System.Windows.Forms.MessageBox]::Show("Done!!!")
+
         JsonForm -ResourceRef $lb.resourceRef  -NCIP $NCIP -NCCredential $NCCredential
 
     }
     catch
     {
-        [System.Windows.Forms.MessageBox]::Show($_) 
+        [System.Windows.Forms.MessageBox]::Show($_)
     }
 
-} 
+}
 
-function RadioForm { 
+function RadioForm {
 
 [OutputType([string])]
 param(
@@ -1170,26 +1170,26 @@ param(
     )
 
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
-    $ExplorerForm.Text = “Please select $Name” 
-    $ExplorerForm.Name = “$Name” 
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    #———————————————-
+    #region Generated Form Code
+    $ExplorerForm.Text = "Please select $Name"
+    $ExplorerForm.Name = "$Name"
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
     # panel to have scroll bar
     $panel = New-Object System.Windows.Forms.Panel
@@ -1197,9 +1197,9 @@ param(
     $panel.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
     $panel.Location = New-Object System.Drawing.Point (5,5)
 
-    $System_Drawing_Point = New-Object System.Drawing.Point 
-    $System_Drawing_Point.X = 80 
-    $System_Drawing_Point.Y = 20 
+    $System_Drawing_Point = New-Object System.Drawing.Point
+    $System_Drawing_Point.X = 80
+    $System_Drawing_Point.Y = 20
     $radioButtons = @()
 
     for ($it = 0; $it -lt $Values.Count ;$it++)
@@ -1220,7 +1220,7 @@ param(
 
         $System_Drawing_Point.Y += 33
     }
- 
+
     $groupBox1 = New-Object System.Windows.Forms.GroupBox
     $groupBox1.Location = New-Object System.Drawing.Point(60, 10)
     $groupBox1.Name = "groupBox1 $Name"
@@ -1232,17 +1232,17 @@ param(
     $panel.Controls.Add($groupBox1)
     $System_Drawing_Point.Y += 33
 
-    $button = New-Object System.Windows.Forms.Button 
-    $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-    $System_Drawing_SizeButton.Width = 240 
-    $System_Drawing_SizeButton.Height = 23 
-    $button.TabIndex = 0 
-    $button.Name = “Select” 
-    $button.Size = $System_Drawing_SizeButton 
+    $button = New-Object System.Windows.Forms.Button
+    $System_Drawing_SizeButton = New-Object System.Drawing.Size
+    $System_Drawing_SizeButton.Width = 240
+    $System_Drawing_SizeButton.Height = 23
+    $button.TabIndex = 0
+    $button.Name = "Select"
+    $button.Size = $System_Drawing_SizeButton
     $button.UseVisualStyleBackColor = $True
     $button.Text = "Select $Name"
-    $button.Location = $System_Drawing_Point 
-    $button.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $button.Location = $System_Drawing_Point
+    $button.DataBindings.DefaultDataSourceUpdateMode = 0
     #$scriptBlock = $DataArr[$it].Value
 
 
@@ -1263,7 +1263,7 @@ param(
         $yPoint = $System_Drawing_Point.Y + 50
     }
 
-    $System_Drawing_Size = New-Object System.Drawing.Size 
+    $System_Drawing_Size = New-Object System.Drawing.Size
     $System_Drawing_Size.Width = 600
     $System_Drawing_Size.Height = $yPoint
     $ExplorerForm.ClientSize = $System_Drawing_Size
@@ -1273,14 +1273,14 @@ param(
     $panel.Size = $System_Drawing_Size
     $panel.AutoScroll = $true
     $ExplorerForm.Controls.Add($panel)
- 
+
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
-    #Show the Form 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
     foreach ($radioButton in $radioButtons)
@@ -1289,66 +1289,66 @@ param(
         {
             $selectedValue = $radioButton.Text
         }
-    }  
+    }
 
   return $selectedValue
 
 } #End Function RadioForm
 
-function GetValueForm { 
+function GetValueForm {
 
 param(
         [string] $Name
     )
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     $selectedValue = $null
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
-    $ExplorerForm.Text = “Please select $Name” 
-    $ExplorerForm.Name = “$Name” 
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    #———————————————-
+    #region Generated Form Code
+    $ExplorerForm.Text = "Please select $Name"
+    $ExplorerForm.Name = "$Name"
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
-    $System_Drawing_Point = New-Object System.Drawing.Point 
-    $System_Drawing_Point.X = 80 
-    $System_Drawing_Point.Y = 20 
+    $System_Drawing_Point = New-Object System.Drawing.Point
+    $System_Drawing_Point.X = 80
+    $System_Drawing_Point.Y = 20
 
 
-    $getBox = New-Object System.Windows.Forms.TextBox 
+    $getBox = New-Object System.Windows.Forms.TextBox
     $getBox.Location = $System_Drawing_Point
-    $getBox.Multiline = $false 
+    $getBox.Multiline = $false
     $getBox.WordWrap = $false
-    $getBox.Size = New-Object System.Drawing.Size(240,23) 
+    $getBox.Size = New-Object System.Drawing.Size(240,23)
     $getBox.Text = ""
-    $ExplorerForm.Controls.Add($getBox) 
+    $ExplorerForm.Controls.Add($getBox)
 
     $System_Drawing_Point.Y += 33
 
-    $button = New-Object System.Windows.Forms.Button 
-    $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-    $System_Drawing_SizeButton.Width = 240 
-    $System_Drawing_SizeButton.Height = 23 
-    $button.TabIndex = 0 
-    $button.Name = “Select” 
-    $button.Size = $System_Drawing_SizeButton 
+    $button = New-Object System.Windows.Forms.Button
+    $System_Drawing_SizeButton = New-Object System.Drawing.Size
+    $System_Drawing_SizeButton.Width = 240
+    $System_Drawing_SizeButton.Height = 23
+    $button.TabIndex = 0
+    $button.Name = "Select"
+    $button.Size = $System_Drawing_SizeButton
     $button.UseVisualStyleBackColor = $True
     $button.Text = "Select $Name"
-    $button.Location = $System_Drawing_Point 
-    $button.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $button.Location = $System_Drawing_Point
+    $button.DataBindings.DefaultDataSourceUpdateMode = 0
     $scriptBlock = $DataArr[$it].Value
     $button.add_Click(
     {
@@ -1358,70 +1358,70 @@ param(
 
     $System_Drawing_Point.Y += 33
 
-    $System_Drawing_Size = New-Object System.Drawing.Size 
+    $System_Drawing_Size = New-Object System.Drawing.Size
     $System_Drawing_Size.Width = 600
     $System_Drawing_Size.Height = $System_Drawing_Point.Y + 50
     $ExplorerForm.ClientSize = $System_Drawing_Size
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
-    #Show the Form 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
     return $getBox.Text
 
 } #End Function GetValueForm
 
-function VerifyUserAction { 
+function VerifyUserAction {
     param(
         [string] $String
     )
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     $ret = $false
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
+    #———————————————-
+    #region Generated Form Code
     if ([string]::IsNullOrEmpty($String))
     {
-        $String = “DO YOU WANT TO CONTINUE???” 
+        $String = "DO YOU WANT TO CONTINUE???"
     }
     $ExplorerForm.Text = $String
-    $ExplorerForm.Name = “Verify!!!” 
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $ExplorerForm.Name = "Verify!!!"
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
-    $System_Drawing_Point = New-Object System.Drawing.Point 
-    $System_Drawing_Point.X = 80 
-    $System_Drawing_Point.Y = 20 
+    $System_Drawing_Point = New-Object System.Drawing.Point
+    $System_Drawing_Point.X = 80
+    $System_Drawing_Point.Y = 20
 
-    $Stop = New-Object System.Windows.Forms.Button 
-    $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-    $System_Drawing_SizeButton.Width = 200 
-    $System_Drawing_SizeButton.Height = 23 
-    $Stop.TabIndex = 0 
-    $Stop.Name = “Stop” 
-    $Stop.Size = $System_Drawing_SizeButton 
+    $Stop = New-Object System.Windows.Forms.Button
+    $System_Drawing_SizeButton = New-Object System.Drawing.Size
+    $System_Drawing_SizeButton.Width = 200
+    $System_Drawing_SizeButton.Height = 23
+    $Stop.TabIndex = 0
+    $Stop.Name = "Stop"
+    $Stop.Size = $System_Drawing_SizeButton
     $Stop.UseVisualStyleBackColor = $True
     $Stop.Text = "Stop"
-    $Stop.Location = $System_Drawing_Point 
-    $Stop.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $Stop.Location = $System_Drawing_Point
+    $Stop.DataBindings.DefaultDataSourceUpdateMode = 0
     $Stop.add_Click(
     {
         $ret = $false
@@ -1431,17 +1431,17 @@ function VerifyUserAction {
 
     $System_Drawing_Point.X += 210
 
-    $Continue = New-Object System.Windows.Forms.Button 
-    $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-    $System_Drawing_SizeButton.Width = 200 
-    $System_Drawing_SizeButton.Height = 23 
-    $Continue.TabIndex = 0 
-    $Continue.Name = “Continue” 
-    $Continue.Size = $System_Drawing_SizeButton 
+    $Continue = New-Object System.Windows.Forms.Button
+    $System_Drawing_SizeButton = New-Object System.Drawing.Size
+    $System_Drawing_SizeButton.Width = 200
+    $System_Drawing_SizeButton.Height = 23
+    $Continue.TabIndex = 0
+    $Continue.Name = "Continue"
+    $Continue.Size = $System_Drawing_SizeButton
     $Continue.UseVisualStyleBackColor = $True
     $Continue.Text = "Continue"
-    $Continue.Location = $System_Drawing_Point 
-    $Continue.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $Continue.Location = $System_Drawing_Point
+    $Continue.DataBindings.DefaultDataSourceUpdateMode = 0
     $Continue.add_Click(
     {
         $Continue.Text = "true"
@@ -1451,18 +1451,18 @@ function VerifyUserAction {
 
     $System_Drawing_Point.Y += 33
 
-    $System_Drawing_Size = New-Object System.Drawing.Size 
+    $System_Drawing_Size = New-Object System.Drawing.Size
     $System_Drawing_Size.Width = 570
     $System_Drawing_Size.Height = $System_Drawing_Point.Y + 50
     $ExplorerForm.ClientSize = $System_Drawing_Size
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
-    #Show the Form 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
+    #Show the Form
 
     $ExplorerForm.ShowDialog()| Out-Null
 
@@ -1475,7 +1475,7 @@ function VerifyUserAction {
 
 } #End Function VerifyUserAction
 
-function JsonForm { 
+function JsonForm {
 
 param(
         [Parameter(mandatory=$true)]
@@ -1493,59 +1493,59 @@ param(
 
     . .\NetworkControllerRESTWrappers.ps1 -ComputerName $NCIP -Username $null -Password $null -Credential $Script:NCCredential
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     $objTextBoxVFP = $null
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-        $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+        $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
-    $ExplorerForm.Text = “$ResourceRef NC:$NCIP $pwd” 
-    $ExplorerForm.Name = “$ResourceRef NC:$NCIP” 
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    #———————————————-
+    #region Generated Form Code
+    $ExplorerForm.Text = "$ResourceRef NC:$NCIP $pwd"
+    $ExplorerForm.Name = "$ResourceRef NC:$NCIP"
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
-    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(700,800) 
+    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(700,800)
 
     $jsonObject = JSONGet -NetworkControllerRestIP $NCIP -path $ResourceRef -credential $NCCredential
 
-    $getBox = New-Object System.Windows.Forms.TextBox 
-    $getBox.Location = New-Object System.Drawing.Size(40,20) 
-    $getBox.Multiline = $true 
+    $getBox = New-Object System.Windows.Forms.TextBox
+    $getBox.Location = New-Object System.Drawing.Size(40,20)
+    $getBox.Multiline = $true
     $getBox.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
     $getBox.WordWrap = $false
-    $getBox.Size = New-Object System.Drawing.Size(250,60) 
+    $getBox.Size = New-Object System.Drawing.Size(250,60)
     $getBox.Text = "Any Resource reference"
-    $ExplorerForm.Controls.Add($getBox) 
+    $ExplorerForm.Controls.Add($getBox)
 
 
-    $button1 = New-Object System.Windows.Forms.Button 
-    $button1.TabIndex = 0 
-    $button1.Name = “Get” 
+    $button1 = New-Object System.Windows.Forms.Button
+    $button1.TabIndex = 0
+    $button1.Name = "Get"
     $button1.Size = New-Object System.Drawing.Size(80,60)
     $button1.UseVisualStyleBackColor = $True
     $button1.Text = "Get"
     $button1.Location = New-Object System.Drawing.Size(310,20)
-    $button1.DataBindings.DefaultDataSourceUpdateMode = 0 
-    
+    $button1.DataBindings.DefaultDataSourceUpdateMode = 0
+
     $scriptBlock = {
 
         if ($EnableMultiWindow)
         {
 			$ps = [powershell]::create()
 
-            $script = {	
+            $script = {
                 param(
                 [string] $ResourceRef,
 
@@ -1556,14 +1556,14 @@ param(
                 [string]$CurWorDir,
 
                 [bool]$EnableMultiWindow
-                )	
-                    try{                    
+                )
+                    try{
                         Set-Location $CurWorDir
                         Import-Module -Force -Name .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
                         JsonForm -ResourceRef $ResourceRef -NCIP $NCIP -NCCredential $NCCredential -EnableMultiWindow $true
                     }
                     catch{
-                        [System.Windows.Forms.MessageBox]::Show($_) 
+                        [System.Windows.Forms.MessageBox]::Show($_)
                     }
 			    }
                 $parameters = @{}
@@ -1574,7 +1574,7 @@ param(
                 $parameters.EnableMultiWindow = $EnableMultiWindow
 	    	    $ps.AddScript(
 			        $script
-		        )		
+		        )
             $ps.AddParameters($parameters)
 		    $ps.BeginInvoke()
         }
@@ -1587,14 +1587,14 @@ param(
     $button1.add_Click($scriptBlock)
     $ExplorerForm.Controls.Add($button1)
 
-    $button2 = New-Object System.Windows.Forms.Button 
-    $button2.TabIndex = 0 
-    $button2.Name = “Enable Editing” 
+    $button2 = New-Object System.Windows.Forms.Button
+    $button2.TabIndex = 0
+    $button2.Name = "Enable Editing"
     $button2.Size = New-Object System.Drawing.Size(80,60)
     $button2.UseVisualStyleBackColor = $True
     $button2.Text = "Enable Editing"
     $button2.Location = New-Object System.Drawing.Size(410,20)
-    $button2.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $button2.DataBindings.DefaultDataSourceUpdateMode = 0
     $scriptBlockEnable = {
         $objTextBox.Enabled = $true
         $ExplorerForm.Controls.Remove($button2)
@@ -1605,14 +1605,14 @@ param(
     $button2.add_Click($scriptBlockEnable)
     $ExplorerForm.Controls.Add($button2)
 
-    $buttonPost = New-Object System.Windows.Forms.Button 
-    $buttonPost.TabIndex = 0 
-    $buttonPost.Name = “Post” 
+    $buttonPost = New-Object System.Windows.Forms.Button
+    $buttonPost.TabIndex = 0
+    $buttonPost.Name = "Post"
     $buttonPost.Size = New-Object System.Drawing.Size(80,60)
     $buttonPost.UseVisualStyleBackColor = $True
     $buttonPost.Text = "Post"
     $buttonPost.Location = New-Object System.Drawing.Size(410,20)
-    $buttonPost.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $buttonPost.DataBindings.DefaultDataSourceUpdateMode = 0
     $scriptBlockPost = {
         $body = ConvertFrom-Json $objTextBox.Text
         $parse = $ResourceRef.Split("/")
@@ -1630,38 +1630,38 @@ param(
         try
 	    {
             JSONPost -path $rid -bodyObject $body
-            [System.Windows.Forms.MessageBox]::Show("Done!!!!") 
+            [System.Windows.Forms.MessageBox]::Show("Done!!!!")
         }
         catch
         {
-            [System.Windows.Forms.MessageBox]::Show("Post Failed!!!!") 
+            [System.Windows.Forms.MessageBox]::Show("Post Failed!!!!")
         }
     }
     $buttonPost.add_Click($scriptBlockPost)
-    
+
 
 
     $objTextBox = New-Object System.Windows.Forms.RichTextBox
-    $objTextBox.Location = New-Object System.Drawing.Size(40,120) 
-    $objTextBox.Multiline = $true 
+    $objTextBox.Location = New-Object System.Drawing.Size(40,120)
+    $objTextBox.Multiline = $true
     $objTextBox.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
     $objTextBox.WordWrap = $false
-    $objTextBox.Size = New-Object System.Drawing.Size(600,630) 
+    $objTextBox.Size = New-Object System.Drawing.Size(600,630)
     $objTextBox.Text = $jsonObject | ConvertTo-Json -Depth 20
     $objTextBox.ReadOnly = $true
-    $ExplorerForm.Controls.Add($objTextBox) 
+    $ExplorerForm.Controls.Add($objTextBox)
 
 
-    $SearchBox1 = New-Object System.Windows.Forms.RichTextBox 
-    $SearchBox1.Location = New-Object System.Drawing.Size(40,100) 
+    $SearchBox1 = New-Object System.Windows.Forms.RichTextBox
+    $SearchBox1.Location = New-Object System.Drawing.Size(40,100)
     $SearchBox1.Multiline = $false
-    
+
     $SearchBox1.WordWrap = $false
-    $SearchBox1.Size = New-Object System.Drawing.Size(500,20) 
+    $SearchBox1.Size = New-Object System.Drawing.Size(500,20)
     $SearchBox1.Text = "Enter Text to search here..."
     $SearchBox1.ForeColor = [Drawing.Color]::Gray
-    $SearchBox1.add_KeyPress({ 
+    $SearchBox1.add_KeyPress({
 
     #Event Argument: $_ = [System.Windows.Forms.KeyEventArgs]
 	    if($_.KeyChar -eq 13)
@@ -1673,16 +1673,16 @@ param(
             $SearchBox1.Text = ""
         }
     })
-    $ExplorerForm.Controls.Add($SearchBox1) 
+    $ExplorerForm.Controls.Add($SearchBox1)
 
-    $findButton = New-Object System.Windows.Forms.Button 
-    $findButton.TabIndex = 0 
-    $findButton.Name = “Find” 
+    $findButton = New-Object System.Windows.Forms.Button
+    $findButton.TabIndex = 0
+    $findButton.Name = "Find"
     $findButton.Size = New-Object System.Drawing.Size(100,20)
     $findButton.UseVisualStyleBackColor = $True
     $findButton.Text = "Find"
     $findButton.Location = New-Object System.Drawing.Size(540,100)
-    $findButton.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $findButton.DataBindings.DefaultDataSourceUpdateMode = 0
     $scriptBlockfindButton = {
         $textBoxes = @()
         $textBoxes += $objTextBox
@@ -1696,12 +1696,12 @@ param(
         foreach ( $textBox in $textBoxes)
         {
             $i = 0
-            $textBox.Text -Split '\n' | % { 
+            $textBox.Text -Split '\n' | % {
             $textBox.SelectionStart = $i
             $line = $_
             $textBox.SelectionLength = $line.Length
-            if (Select-String -Pattern $searchStr -InputObject $line) 
-            { 
+            if (Select-String -Pattern $searchStr -InputObject $line)
+            {
                 $textBox.SelectionColor = [Drawing.Color]::DarkGreen
                 $textBox.SelectionBackColor = [Drawing.Color]::White
 
@@ -1710,12 +1710,12 @@ param(
                     $textBox.ScrollToCaret()
                     $found = $true
                 }
-            } 
-            else 
-            { 
+            }
+            else
+            {
                 $textBox.SelectionColor = [Drawing.Color]::Black
-                $textBox.SelectionBackColor = [System.Drawing.Color]::FromArgb(240,240,240) 
-            } 
+                $textBox.SelectionBackColor = [System.Drawing.Color]::FromArgb(240,240,240)
+            }
             $i += $line.Length + 1
             }
         }
@@ -1738,22 +1738,22 @@ param(
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
 
-    
+
     if ($ResourceRef.Contains("virtualServers"))
     {
-        $runCommand = New-Object System.Windows.Forms.Button 
-        $runCommand.TabIndex = 0 
-        $runCommand.Name = “Run Command” 
+        $runCommand = New-Object System.Windows.Forms.Button
+        $runCommand.TabIndex = 0
+        $runCommand.Name = "Run Command"
         $runCommand.Size = New-Object System.Drawing.Size(80,60)
         $runCommand.UseVisualStyleBackColor = $True
         $runCommand.Text = "Run Command"
         $runCommand.Location = New-Object System.Drawing.Size(510,20)
-        $runCommand.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $runCommand.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock = {
 
             foreach ($address in $jsonObject.properties.connections[0].managementAddresses)
@@ -1768,7 +1768,7 @@ param(
                     }
                     catch
                     {
-                        [System.Windows.Forms.MessageBox]::Show("GetHostByAddress failed!!!!") 
+                        [System.Windows.Forms.MessageBox]::Show("GetHostByAddress failed!!!!")
                         return
                     }
                 }
@@ -1781,7 +1781,7 @@ param(
 
             if([string]::IsNullOrEmpty($ServerName))
             {
-                [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!") 
+                [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!")
                 return
             }
 
@@ -1792,39 +1792,39 @@ param(
     }
     elseif ($ResourceRef.Contains("server"))
     {
-        $ExplorerForm.ClientSize = New-Object System.Drawing.Size(900,800) 
+        $ExplorerForm.ClientSize = New-Object System.Drawing.Size(900,800)
 
-        $ovsdb = New-Object System.Windows.Forms.Button 
-        $ovsdb.TabIndex = 0 
-        $ovsdb.Name = “OVSDB Policies” 
+        $ovsdb = New-Object System.Windows.Forms.Button
+        $ovsdb.TabIndex = 0
+        $ovsdb.Name = "OVSDB Policies"
         $ovsdb.Size = New-Object System.Drawing.Size(100,40)
         $ovsdb.UseVisualStyleBackColor = $True
         $ovsdb.Text = "OVSDB Policies"
         $ovsdb.Location = New-Object System.Drawing.Size(700,100)
-        $ovsdb.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $ovsdb.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock1 = {
 
             if ($EnableMultiWindow)
             {
                 $ps = [powershell]::create()
 
-                $script = {	
-                    param(                   
+                $script = {
+                    param(
 
                     [object]$jsonObject,
 
                     [string]$CurWorDir,
 
                     [bool]$EnableMultiWindow
-                    )	
+                    )
 
                     try{
                             Set-Location $CurWorDir
-                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true                            
-                            OvsdbForm -Server $jsonObject -EnableMultiWindow $true                                                                                  
+                            Import-Module .\SDNExplorer.ps1 -ArgumentList $NCIP,$NCCredential,$true,$true
+                            OvsdbForm -Server $jsonObject -EnableMultiWindow $true
                     }
                         catch{
-                            [System.Windows.Forms.MessageBox]::Show($_) 
+                            [System.Windows.Forms.MessageBox]::Show($_)
                         }
 			        }
                     $parameters = @{}
@@ -1833,9 +1833,9 @@ param(
                     $parameters.EnableMultiWindow = $EnableMultiWindow
 	    	        $ps.AddScript(
 			            $script
-		            )		
+		            )
                 $ps.AddParameters($parameters)
-		        $ps.BeginInvoke()                
+		        $ps.BeginInvoke()
             }
             else
             {
@@ -1845,27 +1845,27 @@ param(
         $ovsdb.add_Click($scriptBlock1)
         $ExplorerForm.Controls.Add($ovsdb)
 
-        $vfp = New-Object System.Windows.Forms.Button 
-        $vfp.TabIndex = 0 
-        $vfp.Name = “VFP Policies” 
+        $vfp = New-Object System.Windows.Forms.Button
+        $vfp.TabIndex = 0
+        $vfp.Name = "VFP Policies"
         $vfp.Size = New-Object System.Drawing.Size(100,40)
         $vfp.UseVisualStyleBackColor = $True
         $vfp.Text = "VFP Policies"
         $vfp.Location = New-Object System.Drawing.Size(700,160)
 
-        $vfp.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $vfp.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock2 = {
             if ($EnableMultiWindow)
             {
                 $ps = [powershell]::create()
 
-                $script = {	
-                    param(                   
+                $script = {
+                    param(
 
                     [object]$jsonObject,
 
                     [string]$CurWorDir
-                    )	
+                    )
 
                     try{
                             Set-Location $CurWorDir
@@ -1873,7 +1873,7 @@ param(
                             GetAllVFPPolices -Server $jsonObject -EnableMultiWindow $true
                         }
                         catch{
-                            [System.Windows.Forms.MessageBox]::Show($_) 
+                            [System.Windows.Forms.MessageBox]::Show($_)
                         }
 			        }
                     $parameters = @{}
@@ -1881,9 +1881,9 @@ param(
                     $parameters.CurWorDir = $pwd
 	    	        $ps.AddScript(
 			            $script
-		            )		
+		            )
                 $ps.AddParameters($parameters)
-		        $ps.BeginInvoke()        
+		        $ps.BeginInvoke()
             }
             else
             {
@@ -1893,14 +1893,14 @@ param(
         $vfp.add_Click($scriptBlock2)
         $ExplorerForm.Controls.Add($vfp)
 
-        $runCommand = New-Object System.Windows.Forms.Button 
-        $runCommand.TabIndex = 0 
-        $runCommand.Name = “Run Command” 
+        $runCommand = New-Object System.Windows.Forms.Button
+        $runCommand.TabIndex = 0
+        $runCommand.Name = "Run Command"
         $runCommand.Size = New-Object System.Drawing.Size(100,40)
         $runCommand.UseVisualStyleBackColor = $True
         $runCommand.Text = "Run Command"
         $runCommand.Location = New-Object System.Drawing.Size(700,220)
-        $runCommand.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $runCommand.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock3 = {
 
             foreach ($address in $jsonObject.properties.connections[0].managementAddresses)
@@ -1918,7 +1918,7 @@ param(
 
             if([string]::IsNullOrEmpty($ServerName))
             {
-                [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!") 
+                [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!")
                 return
             }
 
@@ -1928,17 +1928,17 @@ param(
         $ExplorerForm.Controls.Add($runCommand)
 
 
-        $RDMA = New-Object System.Windows.Forms.Button 
-        $RDMA.TabIndex = 0 
-        $RDMA.Name = “Verify RDMA” 
+        $RDMA = New-Object System.Windows.Forms.Button
+        $RDMA.TabIndex = 0
+        $RDMA.Name = "Verify RDMA"
         $RDMA.Size = New-Object System.Drawing.Size(100,40)
         $RDMA.UseVisualStyleBackColor = $True
         $RDMA.Text = "Verify RDMA"
         $RDMA.Location = New-Object System.Drawing.Size(700,280)
-        $RDMA.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $RDMA.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock4 = {
 
-          
+
             foreach ($address in $jsonObject.properties.connections[0].managementAddresses)
             {
                 try
@@ -1951,21 +1951,21 @@ param(
                     break;
                 }
             }
-          
 
-            RDMAValidation -ServerName $ServerName 
+
+            RDMAValidation -ServerName $ServerName
         }
         $RDMA.add_Click($scriptBlock4)
         $ExplorerForm.Controls.Add($RDMA)
 
-        $Cert = New-Object System.Windows.Forms.Button 
-        $Cert.TabIndex = 0 
-        $Cert.Name = “Verify Certs” 
+        $Cert = New-Object System.Windows.Forms.Button
+        $Cert.TabIndex = 0
+        $Cert.Name = "Verify Certs"
         $Cert.Size = New-Object System.Drawing.Size(100,40)
         $Cert.UseVisualStyleBackColor = $True
         $Cert.Text = "Verify Certs"
         $Cert.Location = New-Object System.Drawing.Size(700,340)
-        $Cert.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $Cert.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock5 = {
 
             foreach ($address in $jsonObject.properties.connections[0].managementAddresses)
@@ -1986,14 +1986,14 @@ param(
         $Cert.add_Click($scriptBlock5)
         $ExplorerForm.Controls.Add($Cert)
 
-        $jumboPkt = New-Object System.Windows.Forms.Button 
-        $jumboPkt.TabIndex = 0 
-        $jumboPkt.Name = “Verify Jumbo pkt” 
+        $jumboPkt = New-Object System.Windows.Forms.Button
+        $jumboPkt.TabIndex = 0
+        $jumboPkt.Name = "Verify Jumbo pkt"
         $jumboPkt.Size = New-Object System.Drawing.Size(100,40)
         $jumboPkt.UseVisualStyleBackColor = $True
         $jumboPkt.Text = "Verify Jumbo pkt"
         $jumboPkt.Location = New-Object System.Drawing.Size(700,400)
-        $jumboPkt.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $jumboPkt.DataBindings.DefaultDataSourceUpdateMode = 0
         $scriptBlock6 = {
 
             foreach ($address in $jsonObject.properties.connections[0].managementAddresses)
@@ -2016,7 +2016,7 @@ param(
     }
     elseif($ResourceRef.Contains("networkInterfaces"))
     {
-        $ExplorerForm.ClientSize = New-Object System.Drawing.Size(1400,800) 
+        $ExplorerForm.ClientSize = New-Object System.Drawing.Size(1400,800)
 
         $scriptBlockVfpRules = {
 
@@ -2026,7 +2026,7 @@ param(
 
             if(-not [string]::IsNullOrEmpty($ServerResource))
             {
-                $server = JSONGet -NetworkControllerRestIP $NCIP -path $ServerResource -credential $NCCredential 
+                $server = JSONGet -NetworkControllerRestIP $NCIP -path $ServerResource -credential $NCCredential
 
                 foreach ($address in $server.properties.connections[0].managementAddresses)
                 {
@@ -2057,7 +2057,7 @@ param(
                         $vms = gwmi -na root\virtualization\v2 msvm_computersystem  | Where Description -Match "Virtual"
                         $port = $null
                         $vms | foreach {
-                            $vm=$_; $vm.GetRelated("Msvm_SyntheticEthernetPort") |  foreach { 
+                            $vm=$_; $vm.GetRelated("Msvm_SyntheticEthernetPort") |  foreach {
                                 $vma = $_;
                                 if($vma.PermanentAddress -eq $Mac)
                                 {
@@ -2079,71 +2079,71 @@ param(
                     $text = RunServerCommand -ServerName $ServerName -scriptBlock $scriptBlockVFP -argumentList $mac
 
                     $objTextBoxVFP.Enabled = $true
-                    
+
                     $objTextBoxVFP.text = ""
-                    
+
                     foreach ($line in $text) {
 		                $objTextBoxVFP.Appendtext($line)
                         $objTextBoxVFP.AppendText("`n")
-	                }           
+	                }
                 }
                 else
                 {
-                    [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!") 
+                    [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!")
                 }
             }
             else
             {
-                [System.Windows.Forms.MessageBox]::Show("Server Resource Missing!!!!") 
+                [System.Windows.Forms.MessageBox]::Show("Server Resource Missing!!!!")
             }
         }
 
-        $buttonVfpRule = New-Object System.Windows.Forms.Button 
-        $buttonVfpRule.TabIndex = 0 
-        $buttonVfpRule.Name = “VFP Rules” 
+        $buttonVfpRule = New-Object System.Windows.Forms.Button
+        $buttonVfpRule.TabIndex = 0
+        $buttonVfpRule.Name = "VFP Rules"
         $buttonVfpRule.Size = New-Object System.Drawing.Size(80,60)
         $buttonVfpRule.UseVisualStyleBackColor = $True
-        $buttonVfpRule.Text = “VFP Rules” 
+        $buttonVfpRule.Text = "VFP Rules"
         $buttonVfpRule.Location = New-Object System.Drawing.Size(800,20)
-        $buttonVfpRule.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $buttonVfpRule.DataBindings.DefaultDataSourceUpdateMode = 0
         $buttonVfpRule.add_Click($scriptBlockVfpRules)
         $ExplorerForm.Controls.Add($buttonVfpRule)
 
-        $buttonVfpRule = New-Object System.Windows.Forms.Button 
-        $buttonVfpRule.TabIndex = 0 
-        $buttonVfpRule.Name = “Start-CAPing” 
+        $buttonVfpRule = New-Object System.Windows.Forms.Button
+        $buttonVfpRule.TabIndex = 0
+        $buttonVfpRule.Name = "Start-CAPing"
         $buttonVfpRule.Size = New-Object System.Drawing.Size(80,60)
         $buttonVfpRule.UseVisualStyleBackColor = $True
-        $buttonVfpRule.Text = “Start-CAPing” 
+        $buttonVfpRule.Text = "Start-CAPing"
         $buttonVfpRule.Location = New-Object System.Drawing.Size(700,20)
-        $buttonVfpRule.DataBindings.DefaultDataSourceUpdateMode = 0 
+        $buttonVfpRule.DataBindings.DefaultDataSourceUpdateMode = 0
         $buttonVfpRule.add_Click(
         {
             CAPing -NCIP $NCIP -Source $jsonObject -NCCredential $NCCredential
         })
         $ExplorerForm.Controls.Add($buttonVfpRule)
 
-        $objTextBoxVFP = New-Object System.Windows.Forms.RichTextBox 
-        $objTextBoxVFP.Location = New-Object System.Drawing.Size(700,100) 
-        $objTextBoxVFP.Multiline = $true 
+        $objTextBoxVFP = New-Object System.Windows.Forms.RichTextBox
+        $objTextBoxVFP.Location = New-Object System.Drawing.Size(700,100)
+        $objTextBoxVFP.Multiline = $true
         $objTextBoxVFP.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
         $objTextBoxVFP.WordWrap = $false
-        $objTextBoxVFP.Size = New-Object System.Drawing.Size(600,650) 
+        $objTextBoxVFP.Size = New-Object System.Drawing.Size(600,650)
         $objTextBoxVFP.font = "lucida console"
         $objTextBoxVFP.Enabled = $false
         $objTextBoxVFP.ReadOnly = $true
-        $ExplorerForm.Controls.Add($objTextBoxVFP) 
+        $ExplorerForm.Controls.Add($objTextBoxVFP)
 
     }
-        
 
-    #Show the Form 
+
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
 } #End Function JsonForm
 
-function RunNCCMDLet { 
+function RunNCCMDLet {
 
 param(
         [Parameter(mandatory=$true)]
@@ -2176,7 +2176,7 @@ param(
                 $ip = $NCIP
             }
             $copyfolder = "Debug-NetworkController_$namingPrefix"
-            $cmdstring += "$Cmdlet -NetworkController $ip -OutputDirectory c:\temp\Debug-NetworkController_$namingPrefix" 
+            $cmdstring += "$Cmdlet -NetworkController $ip -OutputDirectory c:\temp\Debug-NetworkController_$namingPrefix"
         }
         elseif ($Cmdlet -eq "Debug-NetworkControllerConfigurationState")
         {
@@ -2199,7 +2199,7 @@ param(
             Copy-Item Y:\$copyfolder .\$copyfolder -Recurse
         }
 
-        [System.Windows.Forms.MessageBox]::Show("$Cmdlet completed") 
+        [System.Windows.Forms.MessageBox]::Show("$Cmdlet completed")
 
         if ($copyfolder)
         {
@@ -2213,7 +2213,7 @@ param(
     }
     catch
     {
-        [System.Windows.Forms.MessageBox]::Show($_) 
+        [System.Windows.Forms.MessageBox]::Show($_)
     }
     finally
     {
@@ -2225,7 +2225,7 @@ param(
 
 }
 
-function OvsdbForm { 
+function OvsdbForm {
 
 param(
         [Parameter(mandatory=$true)]
@@ -2234,22 +2234,22 @@ param(
         [bool] $EnableMultiWindow=$true
     )
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
     if($EnableMultiWindow)
     {
         $progress = [powershell]::create()
 
-        $progressScript = {	
-                [System.Windows.Forms.MessageBox]::Show("Fetching Policies, it will take a few seconds to complete")                                    
+        $progressScript = {
+                [System.Windows.Forms.MessageBox]::Show("Fetching Policies, it will take a few seconds to complete")
 	    }
-        $progress.AddScript($progressScript)	
-                            		                                               
-	    $progressObj = $progress.BeginInvoke()                                                     
+        $progress.AddScript($progressScript)
+
+	    $progressObj = $progress.BeginInvoke()
     }
-   
+
     foreach ($address in $Server.properties.connections[0].managementAddresses)
     {
         try
@@ -2265,71 +2265,71 @@ param(
 
     if([string]::IsNullOrEmpty($ServerName))
     {
-        [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!") 
+        [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!")
         return
     }
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
+    #———————————————-
+    #region Generated Form Code
     $ExplorerForm.Text = $ServerName
     $ExplorerForm.Name = $ServerName
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
-    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(900,800) 
+    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(900,800)
 
     $vtep = @()
-    $vtep = GetOvsDBVtep -ServerName $ServerName 
-    
+    $vtep = GetOvsDBVtep -ServerName $ServerName
+
     $firewall = @()
-    $firewall = GetOvsDBfirewall -ServerName $ServerName 
+    $firewall = GetOvsDBfirewall -ServerName $ServerName
 
 
-    $objTextBoxVtep = New-Object System.Windows.Forms.RichTextBox 
-    $objTextBoxVtep.Location = New-Object System.Drawing.Size(40,100) 
-    $objTextBoxVtep.Multiline = $true 
+    $objTextBoxVtep = New-Object System.Windows.Forms.RichTextBox
+    $objTextBoxVtep.Location = New-Object System.Drawing.Size(40,100)
+    $objTextBoxVtep.Multiline = $true
     $objTextBoxVtep.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
     $objTextBoxVtep.WordWrap = $false
-    $objTextBoxVtep.Size = New-Object System.Drawing.Size(390,650) 
+    $objTextBoxVtep.Size = New-Object System.Drawing.Size(390,650)
     $objTextBoxVtep.font = "lucida console"
     foreach ($line in $vtep) {
 		$objTextBoxVtep.Appendtext($line)
         $objTextBoxVtep.AppendText("`n")
 	}
-    $ExplorerForm.Controls.Add($objTextBoxVtep) 
+    $ExplorerForm.Controls.Add($objTextBoxVtep)
 
-    $objTextBoxFirewall = New-Object System.Windows.Forms.TextBox 
-    $objTextBoxFirewall.Location = New-Object System.Drawing.Size(470,100) 
-    $objTextBoxFirewall.Multiline = $true 
+    $objTextBoxFirewall = New-Object System.Windows.Forms.TextBox
+    $objTextBoxFirewall.Location = New-Object System.Drawing.Size(470,100)
+    $objTextBoxFirewall.Multiline = $true
     $objTextBoxFirewall.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
     $objTextBoxFirewall.WordWrap = $false
-    $objTextBoxFirewall.Size = New-Object System.Drawing.Size(390,650) 
+    $objTextBoxFirewall.Size = New-Object System.Drawing.Size(390,650)
     foreach ($line in $firewall) {
 		$objTextBoxFirewall.Appendtext($line)
         $objTextBoxFirewall.AppendText("`n")
 	}
-    $ExplorerForm.Controls.Add($objTextBoxFirewall) 
+    $ExplorerForm.Controls.Add($objTextBoxFirewall)
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
 
-    #Show the Form 
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
     if($EnableMultiWindow)
     {
@@ -2338,48 +2338,48 @@ param(
 
 } #End Function OvsdbForm
 
-function RunScriptForm { 
+function RunScriptForm {
 
 param(
         [Parameter(mandatory=$false)]
         [object[]] $Servers
     )
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
+    #———————————————-
+    #region Generated Form Code
     $ExplorerForm.Text = "Run Script Block on all Servers"
     $ExplorerForm.Name = $ServerName
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
-    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(900,800) 
+    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(900,800)
 
 
-    $runScript = New-Object System.Windows.Forms.Button 
-    $System_Drawing_SizeButton = New-Object System.Drawing.Size 
-    $System_Drawing_SizeButton.Width = 240 
-    $System_Drawing_SizeButton.Height = 23 
-    $runScript.TabIndex = 0 
-    $runScript.Name = “Select” 
-    $runScript.Size = $System_Drawing_SizeButton 
+    $runScript = New-Object System.Windows.Forms.Button
+    $System_Drawing_SizeButton = New-Object System.Drawing.Size
+    $System_Drawing_SizeButton.Width = 240
+    $System_Drawing_SizeButton.Height = 23
+    $runScript.TabIndex = 0
+    $runScript.Name = "Select"
+    $runScript.Size = $System_Drawing_SizeButton
     $runScript.UseVisualStyleBackColor = $True
     $runScript.Text = "--Run Script Block--"
     $runScript.Location = New-Object System.Drawing.Size(50,50)
-    $runScript.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $runScript.DataBindings.DefaultDataSourceUpdateMode = 0
     $scriptBlock = {
         $objTextBoxOutPut.text = ""
         $objTextInput.ReadOnly = $true
@@ -2402,11 +2402,11 @@ param(
                     }
 
                     $line = "==============================`n"
-                    $objTextBoxOutPut.text += $line   
+                    $objTextBoxOutPut.text += $line
                     $line = "Running Command on $ServerName `n"
-                    $objTextBoxOutPut.text += $line   
+                    $objTextBoxOutPut.text += $line
                     $line = "==============================`n"
-                    $objTextBoxOutPut.text += $line      
+                    $objTextBoxOutPut.text += $line
 
                     $command = "try{"
                     $command += $objTextInput.text
@@ -2426,29 +2426,29 @@ param(
                 }
                 catch
                 {
-                    [System.Windows.Forms.MessageBox]::Show($_) 
+                    [System.Windows.Forms.MessageBox]::Show($_)
                 }
             }
 
             $i = 0
-            $objTextBoxOutPut.Text -Split '\n' | % { 
+            $objTextBoxOutPut.Text -Split '\n' | % {
             $objTextBoxOutPut.SelectionStart = $i
             $line = $_
             $searchStr1 = "Running Command on "
             $searchStr2 = "===================="
             $objTextBoxOutPut.SelectionLength = $line.Length
-            if (Select-String -Pattern $searchStr1 -InputObject $line) 
-            { 
+            if (Select-String -Pattern $searchStr1 -InputObject $line)
+            {
                 $objTextBoxOutPut.SelectionColor = [Drawing.Color]::Blue
             }
-            elseif (Select-String -Pattern $searchStr2 -InputObject $line) 
-            { 
+            elseif (Select-String -Pattern $searchStr2 -InputObject $line)
+            {
                 $objTextBoxOutPut.SelectionColor = [Drawing.Color]::DarkBlue
-            }  
-            else 
-            { 
+            }
+            else
+            {
                 $objTextBoxOutPut.SelectionColor = [Drawing.Color]::Black
-            } 
+            }
             $i += $line.Length + 1
             }
 
@@ -2457,47 +2457,47 @@ param(
     $runScript.add_Click($scriptBlock)
     $ExplorerForm.Controls.Add($runScript)
 
-    $objTextInput = New-Object System.Windows.Forms.RichTextBox 
-    $objTextInput.Location = New-Object System.Drawing.Size(50,100) 
-    $objTextInput.Multiline = $true 
+    $objTextInput = New-Object System.Windows.Forms.RichTextBox
+    $objTextInput.Location = New-Object System.Drawing.Size(50,100)
+    $objTextInput.Multiline = $true
     $objTextInput.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
     $objTextInput.WordWrap = $false
-    $objTextInput.Size = New-Object System.Drawing.Size(800,300) 
+    $objTextInput.Size = New-Object System.Drawing.Size(800,300)
     $objTextInput.font = "lucida console"
     foreach ($line in $vtep) {
 		$objTextInput.Appendtext($line)
         $objTextInput.AppendText("`n")
 	}
-    $ExplorerForm.Controls.Add($objTextInput) 
+    $ExplorerForm.Controls.Add($objTextInput)
 
-    $objTextBoxOutPut = New-Object System.Windows.Forms.RichTextBox 
-    $objTextBoxOutPut.Location = New-Object System.Drawing.Size(50,450) 
-    $objTextBoxOutPut.Multiline = $true 
+    $objTextBoxOutPut = New-Object System.Windows.Forms.RichTextBox
+    $objTextBoxOutPut.Location = New-Object System.Drawing.Size(50,450)
+    $objTextBoxOutPut.Multiline = $true
     $objTextBoxOutPut.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
     $objTextBoxOutPut.ReadOnly = $true
-    
+
     $objTextBoxOutPut.WordWrap = $false
-    $objTextBoxOutPut.Size = New-Object System.Drawing.Size(800,300) 
+    $objTextBoxOutPut.Size = New-Object System.Drawing.Size(800,300)
     foreach ($line in $firewall) {
 		$objTextBoxOutPut.Appendtext($line)
         $objTextBoxOutPut.AppendText("`n")
 	}
-    $ExplorerForm.Controls.Add($objTextBoxOutPut) 
+    $ExplorerForm.Controls.Add($objTextBoxOutPut)
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
 
-    #Show the Form 
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
 } #End Function RunScriptForm
 
-function GetOvsDBVtep { 
+function GetOvsDBVtep {
 
 param(
         [Parameter(mandatory=$true)]
@@ -2509,7 +2509,7 @@ param(
 
 } #End Function GetOvsDBVtep
 
-function GetOvsDBfirewall { 
+function GetOvsDBfirewall {
 
 param(
         [Parameter(mandatory=$true)]
@@ -2535,12 +2535,12 @@ param(
     {
         $progress = [powershell]::create()
 
-        $progressScript = {	
-                [System.Windows.Forms.MessageBox]::Show("Fetching Policies, it will take a few seconds to complete")                                    
+        $progressScript = {
+                [System.Windows.Forms.MessageBox]::Show("Fetching Policies, it will take a few seconds to complete")
 	    }
-        $progress.AddScript($progressScript)	
-                            		                                               
-	    $progressObj = $progress.BeginInvoke()                                                     
+        $progress.AddScript($progressScript)
+
+	    $progressObj = $progress.BeginInvoke()
     }
 
     foreach ($address in $Server.properties.connections[0].managementAddresses)
@@ -2558,11 +2558,11 @@ param(
 
     if([string]::IsNullOrEmpty($ServerName))
     {
-        [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!") 
+        [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!")
         return
     }
-    
-    $scriptBlock = {   
+
+    $scriptBlock = {
 
         $switches = Get-WmiObject -Namespace root\virtualization\v2 -Class Msvm_VirtualEthernetSwitch
         foreach ($switch in $switches) {
@@ -2603,7 +2603,7 @@ param(
         [Parameter(mandatory=$false)]
         [object[]] $argumentList = $null
     )
-     
+
 
     $text = @()
     $script = ([scriptblock]::Create($scriptBlock))
@@ -2616,11 +2616,11 @@ param(
     {
         $text = Invoke-Command -ComputerName $ServerName -ScriptBlock $script -ArgumentList $argumentList
     }
-  
+
     return $text
 } #End Function RunServerCommand
 
-function DisplayTextForm { 
+function DisplayTextForm {
 
 param(
         [Parameter(mandatory=$true)]
@@ -2630,8 +2630,8 @@ param(
         [string[]] $Text
     )
 
-    [reflection.assembly]::loadwithpartialname(“System.Windows.Forms”) | Out-Null 
-    [reflection.assembly]::loadwithpartialname(“System.Drawing”) | Out-Null 
+    [reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
+    [reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
     #endregion
 
     try
@@ -2651,7 +2651,7 @@ param(
 
         if([string]::IsNullOrEmpty($ServerName))
         {
-            [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!") 
+            [System.Windows.Forms.MessageBox]::Show("Server Name Missing!!!!")
         }
 
         $FormName = $ServerName
@@ -2660,48 +2660,48 @@ param(
     {
     }
 
-    #region Generated Form Objects 
-    $ExplorerForm = New-Object System.Windows.Forms.Form 
-    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState 
+    #region Generated Form Objects
+    $ExplorerForm = New-Object System.Windows.Forms.Form
+    $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
     #endregion Generated Form Objects
 
 
-    $OnLoadForm_StateCorrection= 
-    {#Correct the initial state of the form to prevent the .Net maximized form issue 
-    $ExplorerForm.WindowState = $InitialFormWindowState 
+    $OnLoadForm_StateCorrection=
+    {#Correct the initial state of the form to prevent the .Net maximized form issue
+    $ExplorerForm.WindowState = $InitialFormWindowState
     }
 
-    #———————————————- 
-    #region Generated Form Code 
+    #———————————————-
+    #region Generated Form Code
     $ExplorerForm.Text = $FormName
     $ExplorerForm.Name = $FormName
-    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0 
+    $ExplorerForm.DataBindings.DefaultDataSourceUpdateMode = 0
 
-    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(700,800) 
+    $ExplorerForm.ClientSize = New-Object System.Drawing.Size(700,800)
 
 
-    $objTextBoxVtep = New-Object System.Windows.Forms.RichTextBox 
-    $objTextBoxVtep.Location = New-Object System.Drawing.Size(40,100) 
-    $objTextBoxVtep.Multiline = $true 
+    $objTextBoxVtep = New-Object System.Windows.Forms.RichTextBox
+    $objTextBoxVtep.Location = New-Object System.Drawing.Size(40,100)
+    $objTextBoxVtep.Multiline = $true
     $objTextBoxVtep.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
-    
+
     $objTextBoxVtep.WordWrap = $false
-    $objTextBoxVtep.Size = New-Object System.Drawing.Size(600,650) 
+    $objTextBoxVtep.Size = New-Object System.Drawing.Size(600,650)
     $objTextBoxVtep.font = "lucida console"
     foreach ($line in $Text) {
 		$objTextBoxVtep.Appendtext($line)
         $objTextBoxVtep.AppendText("`n")
 	}
-    $ExplorerForm.Controls.Add($objTextBoxVtep) 
+    $ExplorerForm.Controls.Add($objTextBoxVtep)
 
     #endregion Generated Form Code
 
-    #Save the initial state of the form 
-    $InitialFormWindowState = $ExplorerForm.WindowState 
-    #Init the OnLoad event to correct the initial state of the form 
-    $ExplorerForm.add_Load($OnLoadForm_StateCorrection) 
+    #Save the initial state of the form
+    $InitialFormWindowState = $ExplorerForm.WindowState
+    #Init the OnLoad event to correct the initial state of the form
+    $ExplorerForm.add_Load($OnLoadForm_StateCorrection)
 
-    #Show the Form 
+    #Show the Form
     $ExplorerForm.ShowDialog()| Out-Null
 
 } #End Function DisplayTextForm
@@ -2738,7 +2738,7 @@ function CAPing
         {
             #skip
         }
-    } 
+    }
 
     $selectedIp = RadioForm -Name "Dest IP" -Values $selectIps
 
@@ -2793,11 +2793,11 @@ function CAPing
 
         $operationId = $body.properties.operationId
 
-        [System.Windows.Forms.MessageBox]::Show("CAPing started:$operationId") 
+        [System.Windows.Forms.MessageBox]::Show("CAPing started:$operationId")
     }
     catch
     {
-      [System.Windows.Forms.MessageBox]::Show("$_") 
+      [System.Windows.Forms.MessageBox]::Show("$_")
     }
 } #End Function CAPing
 
@@ -2809,22 +2809,22 @@ function RDMAValidation
     )
 
     $vnics = Invoke-Command -ComputerName $ServerName -ScriptBlock { Get-NetAdapter | Where-Object {$_.DriverName -eq "\SystemRoot\System32\drivers\vmswitch.sys" }  }
-       
 
-    $vnicNames = @()    
+
+    $vnicNames = @()
 
     foreach ($vnic in $vnics)
-    {    
+    {
         $vnicNames += $vnic.Name
-    } 
+    }
     try{
          $selectedVName = RadioForm -Name "Adapter Name" -Values $vnicNames
     }
     catch{
-        [System.Windows.Forms.MessageBox]::Show("Main error" + $_) 
+        [System.Windows.Forms.MessageBox]::Show("Main error" + $_)
         return
     }
-  
+
     foreach ($vnic in $vnics)
     {
         if ($selectedVName -eq $vnic.Name)
@@ -2846,7 +2846,7 @@ function RDMAValidation
     $scriptBlock = {
 
         Param(
-          [string] $IfIndex,  
+          [string] $IfIndex,
           [bool] $IsRoCE
         )
 
@@ -2874,13 +2874,13 @@ function RDMAValidation
 
         $rdmaCapabilities = Get-NetAdapterRdma -InterfaceDescription $rdmaAdapter.InterfaceDescription
 
-        if ($rdmaCapabilities -eq $null -or $rdmaCapabilities.Enabled -eq $false) 
+        if ($rdmaCapabilities -eq $null -or $rdmaCapabilities.Enabled -eq $false)
         {
             return "ERROR: The adapter $rdmaAdapterName is not enabled for RDMA"
         }
 
         if ($rdmaCapabilities.MaxQueuePairCount -eq 0)
-        { 
+        {
             return "ERROR: RDMA capabilities for adapter $rdmaAdapterName are not valid : MaxQueuePairCount is 0"
 
         }
@@ -2928,16 +2928,16 @@ function RDMAValidation
             $vSwitchAdapterMessage = "VERBOSE: Found the following physical adapter(s) bound to vSwitch: "
             $index = 1
             foreach ($qosAdapter in $rdmaAdapters)
-            {        
+            {
                 $qosAdapterName = $qosAdapter.Name
                 $vSwitchAdapterMessage = $vSwitchAdapterMessage + [string]$qosAdapterName
                 if ($index -lt $rdmaAdapters.Length)
-                { 
-                        $vSwitchAdapterMessage = $vSwitchAdapterMessage + ", " 
+                {
+                        $vSwitchAdapterMessage = $vSwitchAdapterMessage + ", "
                 }
                 $index = $index + 1
             }
-            Write-Host $vSwitchAdapterMessage 
+            Write-Host $vSwitchAdapterMessage
         }
 
 
@@ -2947,15 +2947,15 @@ function RDMAValidation
             foreach ($qosAdapter in $rdmaAdapters)
             {
                 $qosAdapterName = $qosAdapter.Name
-                $qos = Get-NetAdapterQos -Name $qosAdapterName 
+                $qos = Get-NetAdapterQos -Name $qosAdapterName
                 if ($qos.Enabled -eq $false)
                 {
-                    return "ERROR: QoS is not enabled for adapter $qosAdapterName"       
+                    return "ERROR: QoS is not enabled for adapter $qosAdapterName"
                 }
 
                 if ($qos.OperationalFlowControl -eq "All Priorities Disabled")
                 {
-                    return "ERROR: Flow control is not enabled for adapter $qosAdapterName"        
+                    return "ERROR: Flow control is not enabled for adapter $qosAdapterName"
                 }
             }
             Write-Host "VERBOSE: QoS/DCB/PFC configuration is correct."
@@ -2966,7 +2966,7 @@ function RDMAValidation
 
     $strOutput = Invoke-Command -ComputerName $ServerName -ScriptBlock $scriptBlock -ArgumentList $selectedVNic.ifIndex,$IsRoce
 
-    [System.Windows.Forms.MessageBox]::Show("$strOutput") 
+    [System.Windows.Forms.MessageBox]::Show("$strOutput")
 } #End Function RDMAValidation
 
 function VerifyJumboPkt
@@ -3015,11 +3015,11 @@ function VerifyJumboPkt
 
         $result = $result | ConvertTo-Json -Depth 10
 
-        [System.Windows.Forms.MessageBox]::Show($result) 
+        [System.Windows.Forms.MessageBox]::Show($result)
     }
     catch
     {
-        [System.Windows.Forms.MessageBox]::Show($_) 
+        [System.Windows.Forms.MessageBox]::Show($_)
     }
 
 }
@@ -3047,7 +3047,7 @@ function VerifyCerts
 
     if ([string]::IsNullOrEmpty($NCCertHash))
     {
-        [System.Windows.Forms.MessageBox]::Show("NC Cert is not configured in Server($ServerName) Json.") 
+        [System.Windows.Forms.MessageBox]::Show("NC Cert is not configured in Server($ServerName) Json.")
     }
 
     $ServerCert = $ServerObject.properties.certificate
@@ -3150,7 +3150,7 @@ function VerifyCerts
 
     $strOutput = Invoke-Command -ComputerName $ServerName -ScriptBlock $scriptBlock -ArgumentList $NCCertHash,$ServerCert
 
-    [System.Windows.Forms.MessageBox]::Show("$strOutput") 
+    [System.Windows.Forms.MessageBox]::Show("$strOutput")
 
 }  #End Function VerifyCerts
 
@@ -3168,7 +3168,7 @@ $LNs.Value += {GenerateArrayForm -HandlerFunc "Get-NCLogicalNetwork" -RemoveFunc
 $InputData += $LNs
 
 $VNs = @{}
-$VNs.Name = "VirtualNetworks" 
+$VNs.Name = "VirtualNetworks"
 $VNs.Value = @()
 $VNs.Value += {GenerateArrayForm -HandlerFunc "Get-NCVirtualNetwork" -RemoveFunc "Remove-NCVirtualNetwork" -NCIP $NCIP -NCCredential $Script:NCCredential -EnableMultiWindow $Script:EnableMultiWindow}
 $InputData += $VNs
@@ -3176,7 +3176,7 @@ $InputData += $VNs
 
 $VSs = @{}
 $VSs.Name = "Virtual Servers"
-$VSs.Value = @() 
+$VSs.Value = @()
 $VSs.Value += {GenerateArrayForm -HandlerFunc "Get-NCVirtualServer" -RemoveFunc "Remove-NCVirtualServer" -NCIP $NCIP -NCCredential $Script:NCCredential -EnableMultiWindow $Script:EnableMultiWindow}
 $InputData += $VSs
 
@@ -3205,13 +3205,13 @@ $InputData += $LB
 $Acls = @{}
 $Acls.Name = "Access Control List"
 $Acls.Value = @()
-$Acls.Value += {GenerateArrayForm -HandlerFunc "Get-NCAccessControlList" -RemoveFunc "Remove-NCAccessControlList" -NCIP $NCIP -NCCredential $Script:NCCredential -EnableMultiWindow $Script:EnableMultiWindow} 
+$Acls.Value += {GenerateArrayForm -HandlerFunc "Get-NCAccessControlList" -RemoveFunc "Remove-NCAccessControlList" -NCIP $NCIP -NCCredential $Script:NCCredential -EnableMultiWindow $Script:EnableMultiWindow}
 $InputData += $Acls
 
 $Credentials = @{}
 $Credentials.Name = "NC Credentials"
 $Credentials.Value = @()
-$Credentials.Value += {GenerateArrayForm -HandlerFunc "Get-NCCredential" -RemoveFunc "Remove-NCCredential" -NCIP $NCIP -NCCredential $Script:NCCredential -EnableMultiWindow $Script:EnableMultiWindow} 
+$Credentials.Value += {GenerateArrayForm -HandlerFunc "Get-NCCredential" -RemoveFunc "Remove-NCCredential" -NCIP $NCIP -NCCredential $Script:NCCredential -EnableMultiWindow $Script:EnableMultiWindow}
 $InputData += $Credentials
 
 $LBM = @{}
@@ -3264,6 +3264,6 @@ $InputData += $VirtualGateway
 
 if(-not $script:IsModule)
 {
-    #Call the Function 
+    #Call the Function
     GenerateMainForm -DataArr $InputData
 }
