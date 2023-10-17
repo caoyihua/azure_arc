@@ -38,7 +38,7 @@ Write-Header "Install latest versions of Nuget and PowershellGet"
 Invoke-Command -VMName $SDNConfig.HostList -Credential $adcred -ScriptBlock {
     Enable-PSRemoting -Force
     $ProgressPreference = "SilentlyContinue"
-    Install-PackageProvider -Name NuGet -Force 
+    Install-PackageProvider -Name NuGet -Force
     Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
     Install-Module -Name PowershellGet -Force
     $ProgressPreference = "Continue"
@@ -58,6 +58,8 @@ Invoke-Command -VMName $SDNConfig.HostList  -Credential $adcred -ScriptBlock {
     Import-Module AksHci -DisableNameChecking
     Initialize-AksHciNode
     $ProgressPreference = "Continue"
+    Add-WindowsCapability -Online -Name OpenSSH.Client
+    $env:Path += ";C:\WINDOWS\System32\OpenSSH"
 }
 
 # Generate unique name for workload cluster
@@ -76,7 +78,7 @@ $clusterName = $SDNConfig.AKSworkloadClusterName + "-" + $namingPrefix
 $rg = $env:resourceGroup
 Write-Header "Prepping AKS Install"
 Invoke-Command -VMName $SDNConfig.HostList[0] -Credential $adcred -ScriptBlock  {
-    $vnet = New-AksHciNetworkSetting -name $using:SDNConfig.AKSvnetname -vSwitchName $using:SDNConfig.AKSvSwitchName -k8sNodeIpPoolStart $using:SDNConfig.AKSNodeStartIP -k8sNodeIpPoolEnd $using:SDNConfig.AKSNodeEndIP -vipPoolStart $using:SDNConfig.AKSVIPStartIP -vipPoolEnd $using:SDNConfig.AKSVIPEndIP -ipAddressPrefix $using:SDNConfig.AKSIPPrefix -gateway $using:SDNConfig.AKSGWIP -dnsServers $using:SDNConfig.AKSDNSIP -vlanID $using:SDNConfig.AKSVlanID        
+    $vnet = New-AksHciNetworkSetting -name $using:SDNConfig.AKSvnetname -vSwitchName $using:SDNConfig.AKSvSwitchName -k8sNodeIpPoolStart $using:SDNConfig.AKSNodeStartIP -k8sNodeIpPoolEnd $using:SDNConfig.AKSNodeEndIP -vipPoolStart $using:SDNConfig.AKSVIPStartIP -vipPoolEnd $using:SDNConfig.AKSVIPEndIP -ipAddressPrefix $using:SDNConfig.AKSIPPrefix -gateway $using:SDNConfig.AKSGWIP -dnsServers $using:SDNConfig.AKSDNSIP -vlanID $using:SDNConfig.AKSVlanID
     Set-AksHciConfig -imageDir $using:SDNConfig.AKSImagedir -workingDir $using:SDNConfig.AKSWorkingdir -cloudConfigLocation $using:SDNConfig.AKSCloudConfigdir -vnet $vnet -cloudservicecidr $using:SDNConfig.AKSCloudSvcidr -controlPlaneVmSize Standard_D4s_v3
     $azurecred = Connect-AzAccount -ServicePrincipal -Subscription $using:context.Subscription.Id -Tenant $using:context.Subscription.TenantId -Credential $using:azureAppCred
     Set-AksHciRegistration -subscriptionId $azurecred.Context.Subscription.Id -resourceGroupName $using:rg -Tenant $azurecred.Context.Tenant.Id -Credential $using:azureAppCred -Region "eastus"
